@@ -1,0 +1,20 @@
+.App__head {
+  height: 200px;
+  background-color: #999;
+}
+
+.before-button {
+  position: fixed;
+  top: 0;
+  width: 100vm;
+  height: 50px;
+  cursor: pointer;
+}
+
+.after-button {
+  position: fixed;
+  top: 60px;
+  width: 100vm;
+  height: 50px;
+  cursor: pointer;
+}

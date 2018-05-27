@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6778fad9-2964-4798-902c-c2437d27f079" name="Default" comment="" />
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>Viewport</find>
+      <find>_schedulePositioningNotify</find>
+      <find>this._getAllItemRectMap()</find>
+      <find>PropTypes.func</find>
+      <find>_useWindow</find>
+      <find>_window</find>
+      <find>_scroller</find>
+      <find>_windowRefRef</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>Updator._caculateTotalItemRect</replace>
+      <replace>Function</replace>
+      <replace>_screenRef</replace>
+      <replace>_windowRef</replace>
+    </replaceStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/lib/createScheduler.tsx" />
+        <option value="$PROJECT_DIR$/src/lib/findIndex.ts" />
+        <option value="$PROJECT_DIR$/src/lib/coordinate.ts" />
+        <option value="$PROJECT_DIR$/src/lib/Position.ts" />
+        <option value="$PROJECT_DIR$/src/lib/list.tsx" />
+        <option value="$PROJECT_DIR$/src/lib/offset-adjust.ts" />
+        <option value="$PROJECT_DIR$/src/lib/Rectangle.ts" />
+        <option value="$PROJECT_DIR$/src/lib/updator.tsx" />
+        <option value="$PROJECT_DIR$/src/lib/super-list.tsx" />
+        <option value="$PROJECT_DIR$/src/lib/virtual-list.ts" />
+        <option value="$PROJECT_DIR$/src/lib/projection.tsx" />
+        <option value="$PROJECT_DIR$/src/component/projection.tsx" />
+        <option value="$PROJECT_DIR$/src/component/lib/footage.ts" />
+        <option value="$PROJECT_DIR$/src/component/super-list.tsx" />
+        <option value="$PROJECT_DIR$/src/component/lib/viewport.ts" />
+        <option value="$PROJECT_DIR$/src/component/lib/rectangle.ts" />
+        <option value="$PROJECT_DIR$/src/component/lib/find-index.ts" />
+        <option value="$PROJECT_DIR$/src/component/lib/Position.ts" />
+        <option value="$PROJECT_DIR$/src/component/lib/screen.ts" />
+        <option value="$PROJECT_DIR$/src/component/lib/projection.ts" />
+        <option value="$PROJECT_DIR$/src/component/lib/position.ts" />
+        <option value="$PROJECT_DIR$/src/component/lib/findNewSlice.ts" />
+        <option value="$PROJECT_DIR$/src/component/virtual-list.ts" />
+        <option value="$PROJECT_DIR$/src/component/virtual-list.tsx" />
+        <option value="$PROJECT_DIR$/tsconfig.json" />
+        <option value="$PROJECT_DIR$/src/App.tsx" />
+        <option value="$PROJECT_DIR$/tslint.json" />
+        <option value="$PROJECT_DIR$/src/component/controller.tsx" />
+        <option value="$PROJECT_DIR$/src/App.css" />
+        <option value="$PROJECT_DIR$/src/index.tsx" />
+        <option value="$PROJECT_DIR$/src/component/list.tsx" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
+    <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="100" />
+    <option name="y" value="20" />
+    <option name="width" value="1400" />
+    <option name="height" value="820" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="untitled1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="untitled1" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="jsdoc&#9;null&#9;null" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.tslint" value="C:\Users\seven\WebstormProjects\untitled1\node_modules\tslint" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\seven\WebstormProjects\untitled1\node_modules\prettier" />
+    <property name="settings.editor.selected.configurable" value="settings.typescriptcompiler" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
+    <property name="typescript-compiler-editor-notification" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\seven\WebstormProjects\untitled1\src\lib\lib" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\seven\WebstormProjects\untitled1\src\component\lib" />
+      <recent name="C:\Users\seven\WebstormProjects\untitled1\src\lib" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" factoryName="npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6778fad9-2964-4798-902c-c2437d27f079" name="Default" comment="" />
+      <created>1527129201304</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1527129201304</updated>
+      <workItem from="1527129203043" duration="1689000" />
+      <workItem from="1527181837686" duration="9541000" />
+      <workItem from="1527211104110" duration="56676000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="67906000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <layout>
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.36873156" />
+      <window_info id="npm" order="2" sideWeight="0.28466076" side_tool="true" weight="0.18841502" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32890856" />
+      <window_info anchor="bottom" id="TypeScript" order="7" weight="0.32890856" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.71533924" visible="true" weight="0.18841502" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32890856" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/component/list.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1406">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+          <folding>
+            <element signature="e#355#522#0" />
+            <element signature="e#568#632#0" />
+            <element signature="e#675#702#0" />
+            <element signature="n#!!block;n#getWrapperNode#0;n#List#0" />
+            <element signature="n#!!doc;n#getRenderedItemHeightMap#0;n#List#0" />
+            <element signature="n#!!block;n#getRenderedItemHeightMap#0;n#List#0" />
+            <element signature="n#!!block#1;n#getRenderedItemHeightMap#0;n#List#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/lib/coordinate.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/lib/find-index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/controller.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2546">
+          <caret line="262" lean-forward="true" selection-start-line="262" selection-end-line="262" />
+          <folding>
+            <element signature="e#1020#1080#0" />
+            <element signature="n#!!doc;n#scrollToIndex#0;n#Controller#0" />
+            <element signature="n#!!block;n#scrollToIndex#0;n#Controller#0" />
+            <element signature="n#!!block;n#_getProjectionMoment#0;n#Controller#0" />
+            <element signature="n#!!doc;n#_getScreenRect#0;n#Controller#0" />
+            <element signature="n#!!block;n#componentDidMount#0;n#Controller#0" />
+            <element signature="n#!!block;n#componentWillReceiveProps#0;n#Controller#0" />
+            <element signature="n#!!block;n#componentWillUpdate#0;n#Controller#0" />
+            <element signature="n#!!block;n#componentDidUpdate#0;n#Controller#0" />
+            <element signature="n#!!block;n#componentWillUnmount#0;n#Controller#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images.d.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tsconfig.prod.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/logo.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/registerServiceWorker.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-912">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.test.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/requestAnimationFrame.ts" />
+    <entry file="file://$PROJECT_DIR$/src/component/lib/findNewSlice.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/lib/Viewport.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/prettier/parser-typescript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret column="478121" selection-start-column="478121" selection-end-column="478121" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/typescript/lib/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="12652" column="10" selection-start-line="12652" selection-start-column="10" selection-end-line="12652" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/lib/find-index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/lib/rectangle.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-95">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="n#!!block;n#Point#0" />
+            <element signature="e#244#337#0" />
+            <element signature="n#!!block;n#constructor#0;n#Rectangle#0" />
+            <element signature="n#!!block;n#getTop#0;n#Rectangle#0" />
+            <element signature="n#!!block;n#getBottom#0;n#Rectangle#0" />
+            <element signature="n#!!block;n#getLeft#0;n#Rectangle#0" />
+            <element signature="n#!!block;n#getRight#0;n#Rectangle#0" />
+            <element signature="n#!!block;n#getHeight#0;n#Rectangle#0" />
+            <element signature="n#!!block;n#getWidth#0;n#Rectangle#0" />
+            <element signature="n#!!doc;n#doesIntersectWith#0;n#Rectangle#0" />
+            <element signature="n#!!block;n#doesIntersectWith#0;n#Rectangle#0" />
+            <element signature="n#!!doc;n#contains#0;n#Rectangle#0" />
+            <element signature="n#!!block;n#contains#0;n#Rectangle#0" />
+            <element signature="e#1590#1673#0" />
+            <element signature="e#1706#1789#0" />
+            <element signature="e#1795#1969#0" />
+            <element signature="n#!!doc;n#translateBy#0;n#Rectangle#0" />
+            <element signature="n#!!block;n#translateBy#0;n#Rectangle#0" />
+            <element signature="e#2221#2245#0" />
+            <element signature="e#2258#2281#0" />
+            <element signature="e#2308#2399#0" />
+            <element signature="e#2409#2449#0" />
+            <element signature="e#2493#2503#0" />
+            <element signature="e#2522#2653#0" />
+            <element signature="n#!!doc;n#isBetween#0;n#Rectangle#0" />
+            <element signature="n#!!block;n#isBetween#0;n#Rectangle#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/lib/screen.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="94" />
+          <folding>
+            <element signature="n#!!doc;n#Screen#0" />
+            <element signature="n#!!doc;n#constructor#0;n#Screen#0" />
+            <element signature="n#!!block;n#constructor#0;n#Screen#0" />
+            <element signature="n#!!block;n#getOffsetTop#0;n#Screen#0" />
+            <element signature="n#!!block;n#setOffsetTop#0;n#Screen#0" />
+            <element signature="e#665#1191#0" />
+            <element signature="n#!!doc;n#getRectRelativeTo#0;n#Screen#0" />
+            <element signature="n#!!block;n#getRectRelativeTo#0;n#Screen#0" />
+            <element signature="n#!!block;n#scrollX#0;n#Screen#0" />
+            <element signature="n#!!block;n#scrollY#0;n#Screen#0" />
+            <element signature="n#!!block;n#scrollBy#0;n#Screen#0" />
+            <element signature="n#!!block;n#scrollTo#0;n#Screen#0" />
+            <element signature="n#!!block;n#addRectChangeListener#0;n#Screen#0" />
+            <element signature="n#!!block;n#addScrollListener#0;n#Screen#0" />
+            <element signature="n#!!block;n#addProgrammaticScrollListener#0;n#Screen#0" />
+            <element signature="n#!!block;n#removeProgrammaticScrollListener#0;n#Screen#0" />
+            <element signature="n#!!doc;n#_getScreenHeight#0;n#Screen#0" />
+            <element signature="n#!!block;n#_getScreenHeight#0;n#Screen#0" />
+            <element signature="e#3711#3848#0" />
+            <element signature="e#3854#3912#0" />
+            <element signature="n#!!doc;n#_addListener#0;n#Screen#0" />
+            <element signature="n#!!block;n#_addListener#0;n#Screen#0" />
+            <element signature="e#4245#4277#0" />
+            <element signature="e#4383#4446#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/lib/footage.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/lib/find-new-slice.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/lib/createScheduler.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/lib/coordinate.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/lib/offset-adjust.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+          <folding>
+            <element signature="e#42#94#0" />
+            <element signature="e#244#512#0" />
+            <element signature="e#272#298#0" />
+            <element signature="e#304#338#0" />
+            <element signature="e#378#506#0" />
+            <element signature="e#386#445#0" />
+            <element signature="e#593#633#0" />
+            <element signature="e#674#754#0" />
+            <element signature="e#759#868#0" />
+            <element signature="e#913#1122#0" />
+            <element signature="e#1011#1034#0" />
+            <element signature="e#1065#1089#0" />
+            <element signature="e#1095#1118#0" />
+            <element signature="e#1127#1148#0" />
+            <element signature="e#1195#1297#0" />
+            <element signature="e#1356#1446#0" />
+            <element signature="e#1482#1504#0" />
+            <element signature="e#1566#1805#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/lib/projection-moment.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-152">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/lib/projection.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tsconfig.test.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="3" lean-forward="true" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tsconfig.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tslint.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="21" lean-forward="true" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/virtual-list.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="4" lean-forward="true" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/@types/react/index.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="541" column="13" selection-start-line="541" selection-start-column="13" selection-end-line="541" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/controller.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="289" lean-forward="true" selection-start-line="289" selection-end-line="289" />
+          <folding>
+            <element signature="e#1020#1080#0" />
+            <element signature="n#!!doc;n#scrollToIndex#0;n#Controller#0" />
+            <element signature="n#!!block;n#scrollToIndex#0;n#Controller#0" />
+            <element signature="n#!!block;n#_getProjectionMoment#0;n#Controller#0" />
+            <element signature="n#!!doc;n#_getScreenRect#0;n#Controller#0" />
+            <element signature="n#!!block;n#componentDidMount#0;n#Controller#0" />
+            <element signature="n#!!block;n#componentWillReceiveProps#0;n#Controller#0" />
+            <element signature="n#!!block;n#componentWillUpdate#0;n#Controller#0" />
+            <element signature="n#!!block;n#componentDidUpdate#0;n#Controller#0" />
+            <element signature="n#!!block;n#componentWillUnmount#0;n#Controller#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/list.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
+          <folding>
+            <element signature="n#!!doc;n#getHeightFromClientRect#0;n#List#0" />
+            <element signature="n#!!doc;n#getRenderedItemHeightMap#0;n#List#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
