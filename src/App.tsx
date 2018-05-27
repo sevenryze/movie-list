@@ -1,5 +1,5 @@
 import * as React from "react";
-import { VirtualList } from "./component/virtual-list";
+import { ProjectionList } from "./component/projection-list";
 import { Screen } from "./component/lib/screen";
 
 function getData(num, from = 0) {
@@ -19,6 +19,8 @@ class List extends React.PureComponent<
   {
     items: any[];
     renderItem: Function;
+    newStart: number;
+    newEnd: number;
   },
   {
     wrapperNode: any;
@@ -42,7 +44,7 @@ class List extends React.PureComponent<
     }
 
     // offset of virtualScrollerComponent top to window top.
-    this._viewport.setOffsetTop(200);
+    //this._viewport.setOffsetTop(200);
     return this._viewport;
   }
 
@@ -69,11 +71,13 @@ class List extends React.PureComponent<
     return (
       <div className="list" ref={this.receiveRef}>
         {wrapperNode ? (
-          <VirtualList
+          <ProjectionList
             data={items}
             itemRenderer={renderItem}
             screen={this.getViewport()}
             assumedItemHeight={100}
+            newDataSliceStart={this.props.newStart}
+            newDataSliceEnd={this.props.newEnd}
           />
         ) : null}
       </div>
@@ -85,23 +89,43 @@ class App extends React.Component<
   {},
   {
     data: any[];
+    newStart: number;
+    newEnd: number;
   }
 > {
   state = {
-    data: getData(20)
+    data: getData(20),
+    newStart: 0,
+    newEnd: 0
   };
 
   addBefore = () => {
     let newData = getData(10, 200);
+
+    let slice = {
+      start: 0,
+      end: newData.length
+    };
+
     this.setState({
-      data: newData.concat(this.state.data)
+      data: newData.concat(this.state.data),
+      newStart: slice.start,
+      newEnd: slice.end
     });
   };
 
   addAfter = () => {
     let newData = getData(10, 300);
+
+    let slice = {
+      start: this.state.data.length,
+      end: this.state.data.length + newData.length
+    };
+
     this.setState({
-      data: this.state.data.concat(newData)
+      data: this.state.data.concat(newData),
+      newStart: slice.start,
+      newEnd: slice.end
     });
   };
 
@@ -131,7 +155,12 @@ class App extends React.Component<
         </div>
 
         <div className="App__head">Site Head</div>
-        <List items={this.state.data} renderItem={this.renderItem} />
+        <List
+          items={this.state.data}
+          renderItem={this.renderItem}
+          newStart={this.state.newStart}
+          newEnd={this.state.newEnd}
+        />
       </div>
     );
   }

@@ -2,7 +2,7 @@ import * as React from "react";
 import throttle from "lodash.throttle";
 import { List } from "./list";
 import { createScheduler } from "./lib/createScheduler";
-import { findNewSlice } from "./lib/find-new-slice";
+import { mapOldFrameIndexIntoNewFilm } from "./lib/find-new-slice";
 import { ProjectionMoment } from "./lib/projection-moment";
 import { Rectangle } from "./lib/rectangle";
 import { offsetCorrection } from "./lib/offset-adjust";
@@ -29,25 +29,25 @@ export class Controller extends React.PureComponent<
 
     // Buffer height / Screen height
     bufferHeightRatio?: number;
+
+    // 新添加frame data的起始位置
+    newDataSliceStart: number;
+    newDataSliceEnd: number;
   },
   {
     // 渲染的数据项片段的起始索引
     renderSliceStart: number; // 渲染的数据项片段的结束索引
     renderSliceEnd: number;
-    blankSpaceAbove: number;
-    blankSpaceBelow: number;
   }
 > {
   static defaultProps = {
-    bufferHeightRatio: 0.5,
+    bufferHeightRatio: 0,
     assumedItemHeight: 400
   };
 
   state = {
     renderSliceStart: 0,
-    renderSliceEnd: 0,
-    blankSpaceBelow: 0,
-    blankSpaceAbove: 0
+    renderSliceEnd: 0
   };
 
   /**
@@ -75,9 +75,7 @@ export class Controller extends React.PureComponent<
     this._scheduleNotifyPosition();
     this.setState({
       renderSliceStart: result.sliceStart,
-      renderSliceEnd: result.sliceEnd,
-      blankSpaceAbove: result.blankSpaceAbove,
-      blankSpaceBelow: result.blankSpaceBelow
+      renderSliceEnd: result.sliceEnd
     });
   }, requestAnimationFrame);
   private _scheduleNotifyPosition = createScheduler(() => {
@@ -206,7 +204,7 @@ export class Controller extends React.PureComponent<
   /**
    * 以胶片film为原点，得到screen的坐标
    *
-   * 表明现在我们的screen在film中的位置
+   * 表明当前screen投影到film的哪个位置
    */
   private _getScreenRect() {
     if (!this._listRef) {
@@ -217,6 +215,31 @@ export class Controller extends React.PureComponent<
     const screen = this.props.screen;
 
     return screen.getRectRelativeTo(listNode);
+  }
+
+  /**
+   * 计算padding的空余量，处于这些量覆盖下的数据项是不会被渲染的
+   * @returns {{blankSpaceAbove: number, blankSpaceBelow: number}}
+   * @private
+   */
+  private _computeBlankSpace() {
+    const { list } = this.props;
+    const { renderSliceStart, renderSliceEnd } = this.state;
+    const rects = this._getFrameRectMap();
+    const lastIndex = list.length - 1;
+
+    return {
+      blankSpaceAbove:
+        list.length <= 0
+          ? 0
+          : rects[list[renderSliceStart].id].getTop() -
+            rects[list[0].id].getTop(),
+      blankSpaceBelow:
+        renderSliceEnd >= list.length
+          ? 0
+          : rects[list[lastIndex].id].getBottom() -
+            rects[list[renderSliceEnd].id].getTop()
+    };
   }
 
   componentDidMount() {
@@ -241,21 +264,32 @@ export class Controller extends React.PureComponent<
 
     const prevList = this.props.list;
     const prevState = this.state;
+
     const nextList = nextProps.list;
+
     if (prevList !== nextList) {
-      const slice = findNewSlice(
+      /* const slice = findNewSlice(
         prevList,
         nextList,
         prevState.renderSliceStart,
         prevState.renderSliceEnd
-      ) || {
-        sliceStart: 0,
-        sliceEnd: 0
-      };
+      ) || { sliceStart: 0, sliceEnd: 0 };
 
       this.setState({
         renderSliceStart: slice.sliceStart,
         renderSliceEnd: slice.sliceEnd
+      });
+*/
+      const slice = mapOldFrameIndexIntoNewFilm({
+        currentFrameStart: prevState.renderSliceStart,
+        currentFrameEnd: prevState.renderSliceEnd,
+        newFrameStart: nextProps.newDataSliceStart,
+        newFrameEnd: nextProps.newDataSliceEnd
+      });
+
+      this.setState({
+        renderSliceStart: slice.start,
+        renderSliceEnd: slice.end
       });
     }
   }
@@ -281,12 +315,11 @@ export class Controller extends React.PureComponent<
   }
 
   render() {
-    const {
-      renderSliceStart,
-      renderSliceEnd,
-      blankSpaceAbove,
-      blankSpaceBelow
-    } = this.state;
+    const { renderSliceStart, renderSliceEnd } = this.state;
+
+    const { blankSpaceAbove, blankSpaceBelow } = this._computeBlankSpace();
+
+    console.log(`start: ${renderSliceStart}, end: ${renderSliceEnd}`);
 
     return (
       <List

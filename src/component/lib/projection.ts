@@ -13,7 +13,7 @@ export function projection(options: {
   // 缓冲区高度 / 屏幕高度
   bufferRatio?: number;
 }) {
-  const { frameRectMap, screenRect, list, bufferRatio = 0.5 } = options;
+  const { frameRectMap, screenRect, list, bufferRatio = 0 } = options;
 
   const bufferHeight = screenRect.getHeight() * bufferRatio;
 
@@ -40,23 +40,8 @@ export function projection(options: {
     endIndex = list.length;
   }
 
-  // 获得填充留白的高度
-  let blankSpaceAbove =
-    list.length <= 0
-      ? 0
-      : frameRectMap[list[startIndex].id].getTop() -
-        frameRectMap[list[0].id].getTop();
-
-  let blankSpaceBelow =
-    endIndex >= list.length
-      ? 0
-      : frameRectMap[list[list.length - 1].id].getBottom() -
-        frameRectMap[list[endIndex].id].getBottom();
-
   return {
     sliceStart: startIndex,
-    sliceEnd: endIndex,
-    blankSpaceAbove,
-    blankSpaceBelow
+    sliceEnd: endIndex
   };
 }
