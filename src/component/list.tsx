@@ -6,12 +6,15 @@ export class List extends React.PureComponent<{
   // 下方留白的大小
   blankSpaceBelow: number;
   // 要渲染的数据项列表
-  list: { id: string; data?: object }[];
+  list: { id: string; content: object }[];
   // 数据项的渲染函数
   itemRenderer: Function;
+
+  // 获得已渲染帧高度表
+  //getRenderedFrameMap: (heightMap: HeightMap) => void;
 }> {
   // 保存当前渲染的数据项的底层DOM引用。
-  private _refList = {};
+  private _renderedFrameRefMap: HeightMap = {};
 
   // 保存当前list组件的包裹DOM。
   private _wrapperViewRef = React.createRef<HTMLDivElement>();
@@ -33,29 +36,20 @@ export class List extends React.PureComponent<{
   }
 
   /**
-   * 获取已渲染数据项的高度表
+   * 获取已渲染帧的高度表
    */
-  getRenderedItemHeightMap(): {
-    [id: string]: number;
-  } {
+  getRenderedItemHeightMap(): HeightMap {
     /**
      * 遍历list，因此id都是属于已经渲染的数据项，也就避开了ref=null的情况
      */
     return this.props.list.reduce((heightsMap, item) => {
       const id = item.id;
-      const node = this._refList[id];
+      const node = this._renderedFrameRefMap[id];
 
       heightsMap[id] = List.getHeightFromClientRect(node);
       return heightsMap;
     }, {});
   }
-
-  private _itemActualHeights = [];
-  private _recordActualHeights = ref => {
-    let height = ref ? ref.getBoundingClientRect().height : 0;
-
-    this._itemActualHeights.push(height);
-  };
 
   render() {
     const { blankSpaceAbove, blankSpaceBelow } = this.props;
@@ -72,16 +66,16 @@ export class List extends React.PureComponent<{
           const id = item.id;
 
           // 使用用户自定义的数据项渲染函数来渲染数据。
-          const reactElement = this.props.itemRenderer(item, index);
+          const reactElement = this.props.itemRenderer(item.content, index);
 
           return React.cloneElement(reactElement, {
             key: id,
             ref: ref => {
-              this._refList[id] = ref;
+              this._renderedFrameRefMap[id] = ref;
 
               // 如果有用户自定义的ref函数，调用它。
               if ("function" === typeof reactElement.ref) {
-                reactElement.ref();
+                reactElement.ref(ref);
               }
             }
           });
@@ -89,4 +83,8 @@ export class List extends React.PureComponent<{
       </div>
     );
   }
+}
+
+export interface HeightMap {
+  [id: string]: number;
 }

@@ -6,6 +6,7 @@
 .before-button {
   position: fixed;
   top: 0;
+  left: 10rem;
   width: 100vm;
   height: 50px;
   cursor: pointer;
@@ -14,6 +15,7 @@
 .after-button {
   position: fixed;
   top: 60px;
+  left: 10rem;
   width: 100vm;
   height: 50px;
   cursor: pointer;

@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "lodash.throttle": "^4.1.1",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "react-scripts-ts": "2.16.0"
   },
   "scripts": {
@@ -16,10 +16,10 @@
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
-    "@types/node": "^10.1.2",
-    "@types/react": "^16.3.14",
-    "@types/react-dom": "^16.0.5",
-    "prettier": "^1.12.1",
-    "typescript": "^2.8.3"
+    "@types/node": "^10.3.4",
+    "@types/react": "^16.4.1",
+    "@types/react-dom": "^16.0.6",
+    "prettier": "^1.13.5",
+    "typescript": "^2.9.2"
   }
 }

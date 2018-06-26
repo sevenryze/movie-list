@@ -73,6 +73,7 @@ export class Screen {
    * @returns {Rectangle} 相对于指定原点的矩形
    */
   getRectRelativeTo(node?: HTMLElement) {
+    // 原点坐标
     let originTop = 0;
 
     // 获得screen的高度
@@ -131,7 +132,7 @@ export class Screen {
     this._programScrollListeners.forEach(listener => listener(yPos));
   }
 
-  addRectChangeListener(listener) {
+  addResizeListener(listener) {
     return this._addListener(
       "resize",
       listener,

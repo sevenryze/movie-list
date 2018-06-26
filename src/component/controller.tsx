@@ -1,34 +1,38 @@
 import * as React from "react";
 import throttle from "lodash.throttle";
-import { List } from "./list";
-import { createScheduler } from "./lib/createScheduler";
+import { requestAnimationFrame } from "./lib/rAF";
+import { List, HeightMap } from "./list";
+import { createScheduler } from "./lib/schedule";
 import { mapOldFrameIndexIntoNewFilm } from "./lib/find-new-slice";
-import { ProjectionMoment } from "./lib/projection-moment";
-import { Rectangle } from "./lib/rectangle";
+import { Snapshot } from "./module/snapshot";
+import { Rectangle } from "./module/rectangle";
 import { offsetCorrection } from "./lib/offset-adjust";
 import { projection } from "./lib/projection";
-import { Screen } from "./lib/screen";
+import { Screen } from "./module/screen";
 
-interface DataItem {
+export interface DataItem {
   id: string;
+  content: any;
 }
 
-interface HeightMap {
-  [id: string]: number;
+export interface Frame {
+  id: string;
+  rect: Rectangle;
+  content: any;
 }
 
 export class Controller extends React.PureComponent<
   {
     list: DataItem[];
     itemRenderer: Function;
-    onPositionUpdate?: Function;
-    assumedItemHeight?: number;
+    onSnapshotUpdate?: Function;
+    assumedItemHeight: number;
 
     // 用户可视屏幕
     screen: Screen;
 
     // Buffer height / Screen height
-    bufferHeightRatio?: number;
+    bufferHeightRatio: number;
 
     // 新添加frame data的起始位置
     newDataSliceStart: number;
@@ -40,11 +44,6 @@ export class Controller extends React.PureComponent<
     renderSliceEnd: number;
   }
 > {
-  static defaultProps = {
-    bufferHeightRatio: 0,
-    assumedItemHeight: 400
-  };
-
   state = {
     renderSliceStart: 0,
     renderSliceEnd: 0
@@ -57,36 +56,41 @@ export class Controller extends React.PureComponent<
    *
    * 使用数据项的`id`作为其高度的索引.
    */
-  private _cachedHeightMap: HeightMap = {};
+  private _renderedHeightCache: HeightMap = {};
 
+  // 创建投影和快照的调度器
   private _scheduleProjection = createScheduler(() => {
-    const { list } = this.props;
+    const { list, bufferHeightRatio } = this.props;
 
     if (this._isUnmounted || 0 === list.length) {
       return;
     }
 
     const result = projection({
-      list: list,
       screenRect: this._getScreenRect(),
-      frameRectMap: this._getFrameRectMap()
+      frameList: this._getFrameList(),
+      bufferHeightRatio: bufferHeightRatio
     });
 
-    this._scheduleNotifyPosition();
+    console.log(
+      `Projecting result: ${JSON.stringify(result)}, scrollY: ${window.scrollY}`
+    );
+
+    this._scheduleSnapshotNotification();
     this.setState({
       renderSliceStart: result.sliceStart,
       renderSliceEnd: result.sliceEnd
     });
   }, requestAnimationFrame);
-  private _scheduleNotifyPosition = createScheduler(() => {
-    if (!this._isUnmounted && this.props.onPositionUpdate) {
-      this.props.onPositionUpdate(this._getProjectionMoment());
+  private _scheduleSnapshotNotification = createScheduler(() => {
+    if (!this._isUnmounted && this.props.onSnapshotUpdate) {
+      this.props.onSnapshotUpdate(this._getSnapshot());
     }
   }, requestAnimationFrame);
 
   private _listRef;
 
-  private _prevProjectionMoment;
+  private _prevSnapshot;
 
   /**
    * 因为采用了异步更新，如果virtualScroll已经被卸载，那么会导致找不到引用对象等错误。
@@ -103,30 +107,31 @@ export class Controller extends React.PureComponent<
    * @param index frame在文档内的索引
    */
   scrollToIndex(index) {
-    const { list, screen } = this.props;
-    const targetItem = list[index];
-    const rects = this._getFrameRectMap();
+    const { screen } = this.props;
+    const frame = this._getFrameList()[index];
 
-    screen.scrollTo(rects[targetItem.id].getTop() + screen.getOffsetTop());
+    screen.scrollTo(frame.rect.getTop() + screen.getOffsetTop());
   }
 
   private _handleRefUpdate = ref => {
     this._listRef = ref;
   };
 
-  private _correctProjection = hasListChanged => {
-    if (!this._listRef) {
-      return;
-    }
-
-    // 得到已渲染数据项的高度映射图
+  /**
+   * 更新高度表
+   *
+   * @returns {number} 实际高度和估计高度之间的误差
+   * @private
+   */
+  private _updateHeight = (): number => {
+    // 得到已渲帧的高度表
     const renderedItemHeightMap = this._listRef.getRenderedItemHeightMap();
 
     // 计算总体的高度误差
     const heightError = Object.keys(renderedItemHeightMap).reduce(
       (accHeight, key) => {
-        const itemHeight = this._cachedHeightMap.hasOwnProperty(key)
-          ? this._cachedHeightMap[key]
+        const itemHeight = this._renderedHeightCache.hasOwnProperty(key)
+          ? this._renderedHeightCache[key]
           : this.props.assumedItemHeight;
 
         return accHeight + renderedItemHeightMap[key] - itemHeight;
@@ -136,66 +141,90 @@ export class Controller extends React.PureComponent<
 
     // 如果高度差值不为零，更新高度表。
     if (heightError !== 0) {
-      this._cachedHeightMap = Object.assign(
-        this._cachedHeightMap,
+      this._renderedHeightCache = Object.assign(
+        this._renderedHeightCache,
         renderedItemHeightMap
       );
     }
 
+    return heightError;
+  };
+
+  /**
+   * 矫正当前的投影，用于在投影渲染结束后矫正误差
+   *
+   * @param hasListChanged 数据列表是否发生变化
+   * @private
+   */
+  private _correctProjection = hasListChanged => {
+    if (!this._listRef) {
+      return;
+    }
+
+    let heightError = this._updateHeight();
+
+    console.log(`heightError: ${heightError}`);
+    //if (heightError !== 0) this._scheduleProjection();
+
+    //this.props.screen.scrollBy(heightError);
+
     // 矫正scrollBar的位置
-    if ((hasListChanged || heightError !== 0) && this._prevProjectionMoment) {
+    if ((hasListChanged || heightError !== 0) && this._prevSnapshot) {
       // 校正anchor的位置
-      let offset = offsetCorrection(
-        this._prevProjectionMoment,
-        this._getProjectionMoment()
-      );
+      let offset = offsetCorrection(this._prevSnapshot, this._getSnapshot());
+
+      //console.log(`scroll offset: ${offset}`);
 
       // 滑动到校正过的位置
       this.props.screen.scrollBy(offset);
     }
 
     // 如果高度差超过一个估计高，则有可能slice的范围出错，需要重新projection
-    if (
+    /*  if (
       hasListChanged ||
       Math.abs(heightError) >= this.props.assumedItemHeight
     ) {
+      console.log(`重新投影`);
       this._scheduleProjection();
-    }
+    }*/
 
-    this._scheduleNotifyPosition();
+    this._scheduleSnapshotNotification();
   };
 
-  private _getFrameRectMap = () => {
+  private _getFrameList = () => {
     let { list, assumedItemHeight } = this.props;
 
-    const frameRectMap = {};
     let top = 0;
+    const frameList: Frame[] = [];
 
     list.forEach(item => {
       const id = item.id;
 
-      const height = this._cachedHeightMap[id]
-        ? this._cachedHeightMap[id]
+      const height = this._renderedHeightCache[id]
+        ? this._renderedHeightCache[id]
         : assumedItemHeight;
 
-      frameRectMap[id] = new Rectangle({
-        top,
-        height
+      frameList.push({
+        id: id,
+        rect: new Rectangle({
+          top,
+          height
+        }),
+        content: item.content
       });
 
       top += height;
     });
 
-    return frameRectMap;
+    return frameList;
   };
 
-  private _getProjectionMoment() {
+  private _getSnapshot() {
     const { renderSliceStart, renderSliceEnd } = this.state;
 
-    return new ProjectionMoment({
+    return new Snapshot({
       screenRect: this._getScreenRect(),
-      list: this.props.list,
-      frameRectMap: this._getFrameRectMap(),
+      frameList: this._getFrameList(),
       sliceStart: renderSliceStart,
       sliceEnd: renderSliceEnd
     });
@@ -223,63 +252,59 @@ export class Controller extends React.PureComponent<
    * @private
    */
   private _computeBlankSpace() {
-    const { list } = this.props;
     const { renderSliceStart, renderSliceEnd } = this.state;
-    const rects = this._getFrameRectMap();
-    const lastIndex = list.length - 1;
+
+    const frameList = this._getFrameList();
 
     return {
       blankSpaceAbove:
-        list.length <= 0
+        frameList.length <= 0
           ? 0
-          : rects[list[renderSliceStart].id].getTop() -
-            rects[list[0].id].getTop(),
+          : frameList[renderSliceStart].rect.getTop() -
+            frameList[0].rect.getTop(),
       blankSpaceBelow:
-        renderSliceEnd >= list.length
+        renderSliceEnd >= frameList.length
           ? 0
-          : rects[list[lastIndex].id].getBottom() -
-            rects[list[renderSliceEnd].id].getTop()
+          : frameList[frameList.length - 1].rect.getBottom() -
+            frameList[renderSliceEnd].rect.getTop()
     };
   }
 
+  /**
+   * 1. 注册scroll和resize事件的监听函数
+   * 2. 调度第一次投影操作
+   */
   componentDidMount() {
-    // 注册scroll事件的监听函数
+    const throttleDuration = 200;
+
     this._unlistenScroll = this.props.screen.addScrollListener(
-      throttle(this._scheduleProjection, 100, {
-        trailing: true
+      throttle(this._scheduleProjection, throttleDuration, {
+        trailing: true,
+        leading: false
       })
     );
-    // 注册resize事件的监听函数
-    this._unlistenResize = this.props.screen.addScrollListener(
-      throttle(this._scheduleProjection, 100, {
-        trailing: true
-      })
+    // 一旦用户resize屏幕，我们需要重新获取当前帧的高度
+    this._unlistenResize = this.props.screen.addResizeListener(
+      throttle(
+        () => {
+          this._updateHeight();
+          this._scheduleProjection();
+        },
+        throttleDuration,
+        { trailing: true }
+      )
     );
 
-    this._correctProjection(true);
+    this._scheduleProjection();
   }
 
   componentWillReceiveProps(nextProps) {
-    //console.log(`component will receive props`);
-
     const prevList = this.props.list;
     const prevState = this.state;
 
     const nextList = nextProps.list;
 
     if (prevList !== nextList) {
-      /* const slice = findNewSlice(
-        prevList,
-        nextList,
-        prevState.renderSliceStart,
-        prevState.renderSliceEnd
-      ) || { sliceStart: 0, sliceEnd: 0 };
-
-      this.setState({
-        renderSliceStart: slice.sliceStart,
-        renderSliceEnd: slice.sliceEnd
-      });
-*/
       const slice = mapOldFrameIndexIntoNewFilm({
         currentFrameStart: prevState.renderSliceStart,
         currentFrameEnd: prevState.renderSliceEnd,
@@ -295,7 +320,7 @@ export class Controller extends React.PureComponent<
   }
 
   componentWillUpdate() {
-    this._prevProjectionMoment = this._getProjectionMoment();
+    this._prevSnapshot = this._getSnapshot();
   }
 
   componentDidUpdate(prevProps) {
@@ -319,7 +344,7 @@ export class Controller extends React.PureComponent<
 
     const { blankSpaceAbove, blankSpaceBelow } = this._computeBlankSpace();
 
-    console.log(`start: ${renderSliceStart}, end: ${renderSliceEnd}`);
+    //console.log(`start: ${renderSliceStart}, end: ${renderSliceEnd}`);
 
     return (
       <List

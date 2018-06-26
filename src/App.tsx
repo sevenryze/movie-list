@@ -1,11 +1,15 @@
 import * as React from "react";
-import { ProjectionList } from "./component/projection-list";
-import { Screen } from "./component/lib/screen";
+import { SuperList } from "./component/super-list";
+import { Screen } from "./component/module/screen";
+import { getRandomString } from "./component/lib/random-id";
 
 function getData(num, from = 0) {
   return new Array(num).fill(1).map((_, index) => ({
-    id: from + index,
-    height: Math.ceil(Math.random() * 100) + 50
+    id: getRandomString(),
+    content: {
+      id: from + index,
+      height: Math.ceil(Math.random() * 1000) + 50
+    }
   }));
 }
 
@@ -44,19 +48,7 @@ class List extends React.PureComponent<
     }
 
     // offset of virtualScrollerComponent top to window top.
-    //this._viewport.setOffsetTop(200);
-    return this._viewport;
-  }
-
-  getViewportDiv() {
-    const { wrapperNode } = this.state;
-
-    if (!this._viewport) {
-      this._viewport = new Screen(window, wrapperNode);
-    }
-
-    // offset of virtualScrollerComponent top to window top.
-    //this._viewport.setOffsetTop(200);
+    this._viewport.setOffsetTop(200);
     return this._viewport;
   }
 
@@ -71,11 +63,10 @@ class List extends React.PureComponent<
     return (
       <div className="list" ref={this.receiveRef}>
         {wrapperNode ? (
-          <ProjectionList
+          <SuperList
             data={items}
             itemRenderer={renderItem}
             screen={this.getViewport()}
-            assumedItemHeight={100}
             newDataSliceStart={this.props.newStart}
             newDataSliceEnd={this.props.newEnd}
           />
@@ -139,7 +130,7 @@ class App extends React.Component<
         }}
         js-id={item.id}
       >
-        {item.id + "   " + "好".repeat(item.height + 100)}
+        {index + ` ----------- ` + "好".repeat(item.height + 100)}
       </div>
     );
   };

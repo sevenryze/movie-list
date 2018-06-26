@@ -1,8 +1,5 @@
 function findAnchor(prevPos, nextPos) {
-  //console.log(`prePos: ${JSON.stringify(prevPos)}`);
-  //console.log(`nextPos: ${JSON.stringify(nextPos)}`);
-
-  const viewportRect = prevPos.getViewportRect();
+  const viewportRect = prevPos.getScreenRect();
 
   const findBest = (list, comparator) => {
     if (list.length <= 0) {
@@ -57,7 +54,8 @@ function findAnchor(prevPos, nextPos) {
     return bResult - aResult;
   };
 
-  const bothRendered = nextPos.getList().filter(item => {
+  // 得到两次投影均渲染的帧列表
+  const bothRendered = nextPos.getFrameList().filter(item => {
     const id = item.id;
     return prevPos.isRendered(id) && nextPos.isRendered(id);
   });
@@ -67,8 +65,8 @@ function findAnchor(prevPos, nextPos) {
   }
 
   const theBest = findBest(bothRendered, (current, best) => {
-    const item = prevPos.getItemRect(current.id);
-    const bestItem = prevPos.getItemRect(best.id);
+    const item = prevPos.getFrameRectBy(current.id);
+    const bestItem = prevPos.getFrameRectBy(best.id);
 
     return (
       boolCompartor(inViewport, item, bestItem) ||
@@ -89,8 +87,6 @@ function findAnchor(prevPos, nextPos) {
 export function offsetCorrection(prevPos, nextPos) {
   const anchor = findAnchor(prevPos, nextPos);
 
-  //console.log(`anchor: ${JSON.stringify(anchor)}`);
-
   // 如果没有anchor，则说明没有没有假设和实际高度的差别。
   if (!anchor) {
     return 0;
@@ -99,18 +95,32 @@ export function offsetCorrection(prevPos, nextPos) {
   const anchorId = anchor.id;
 
   const offsetToViewport =
-    prevPos.getItemRect(anchorId).getTop() - prevPos.getViewportRect().getTop();
+    prevPos.getFrameRectBy(anchorId).getTop() -0
+    //prevPos.getScreenRect().getTop();
 
   //console.log(`offsetToViewport: ${offsetToViewport}`);
+  console.log(
+    `prevFrameTop: ${prevPos
+      .getFrameRectBy(anchorId)
+      .getTop()}, screenTop: ${prevPos
+      .getScreenRect()
+      .getTop()}, offset: ${offsetToViewport}`
+  );
 
   const nextOffsetToViewport =
-    nextPos.getItemRect(anchorId).getTop() - nextPos.getViewportRect().getTop();
+    nextPos.getFrameRectBy(anchorId).getTop() -0
+    //nextPos.getScreenRect().getTop();
 
   //console.log(`nextOffsetToViewport: ${nextOffsetToViewport}`);
+  console.log(
+    `nextFrameTop: ${nextPos
+      .getFrameRectBy(anchorId)
+      .getTop()}, screenTop: ${nextPos
+      .getScreenRect()
+      .getTop()}, offset: ${nextOffsetToViewport}`
+  );
 
-  let result = nextOffsetToViewport - offsetToViewport;
+  console.log(`offset: ${nextOffsetToViewport - offsetToViewport}`);
 
-  //console.log(`result: ${result}`);
-
-  return result;
+  return nextOffsetToViewport - offsetToViewport;
 }
