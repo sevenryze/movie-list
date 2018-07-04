@@ -37,33 +37,6 @@ export class Screen {
     this._offsetTop = Math.ceil(value);
   }
 
-  /*getRectRelativeTo(node: HTMLElement) {
-    const nodeTop = node.getBoundingClientRect().top;
-
-    return this.getRect().relativeToPoint({
-      top: nodeTop,
-      left: 0
-    });
-  }
-
-  /!**
-   * 获得屏幕矩形。相对于浏览器坐标原点。
-   *
-   * @return {Rectangle} 返回屏幕矩形
-   *!/
-  getRect() {
-    const screenHeight = this._getScreenHeight();
-
-    const screenTop = this._useWindowAsScreen
-      ? 0
-      : this._screenRef.getBoundingClientRect().top;
-
-    return new Rectangle({
-      top: screenTop,
-      height: screenHeight
-    });
-  }*/
-
   /**
    * 得到相对于指定原点的屏幕矩形。
    *

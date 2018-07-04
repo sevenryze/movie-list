@@ -15,9 +15,14 @@ export class Rectangle {
       left?: number;
       height?: number;
       width?: number;
-    } = {}
+    } = {
+      top: 0,
+      left: 0,
+      height: 0,
+      width: 0
+    }
   ) {
-    let { top = 0, left = 0, height = 0, width = 0 } = options;
+    let { top, left, height, width } = options;
 
     this._top = top;
     this._left = left;
@@ -50,10 +55,10 @@ export class Rectangle {
   }
 
   /**
-   * 检查与矩形`rect`是否有干涉
+   * 检查与参数矩形`rect`是否有干涉
    *
    * @param {Rectangle} rect 待检查矩形
-   * @returns {boolean} 检查结果。true: 有干涉；false：无干涉
+   * @returns {boolean} 检查结果：true: 有干涉；false：无干涉
    */
   doesIntersectWith(rect: Rectangle): boolean {
     const top = this.getTop();
@@ -75,7 +80,7 @@ export class Rectangle {
   }
 
   /**
-   * 检查`point`是否在矩形范围内
+   * 检查参数点`point`是否在矩形范围内
    *
    * @returns {boolean}
    * @param point 待检查点
@@ -123,7 +128,7 @@ export class Rectangle {
   /**
    * 获得相对于新原点`point`坐标的矩形
    *
-   * 新原点`point`的坐标和待计算矩形的坐标必须拥有同样的参考原点。
+   * 新原点`point`的坐标和待计算矩形的坐标必须拥有同样的参考原点(在同一个世界坐标系下)。
    *
    * @param point {Point} 新的原点坐标
    * @return {Rectangle} 返回相对于point的新矩形

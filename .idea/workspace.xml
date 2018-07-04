@@ -14,53 +14,73 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="innerlist.tsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/innerlist.tsx">
+      <file leaf-file-name="projector.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/projector.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" />
+            <state relative-caret-position="-38">
+              <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
               <folding>
-                <element signature="e#412#682#0" />
-                <element signature="e#686#855#0" />
-                <element signature="e#971#1081#0" />
-                <element signature="e#1202#1823#0" />
-                <element signature="e#1305#1326#0" />
-                <element signature="e#1429#1499#0" />
-                <element signature="e#1627#1817#0" />
-                <element signature="e#1873#1954#0" />
-                <element signature="e#2080#2110#0" />
-                <element signature="e#2115#2209#0" />
-                <element signature="e#2259#2492#0" />
-                <element signature="e#2285#2306#0" />
-                <element signature="n#!!doc;n#componentDidMount#0;n#Innerlist#0" />
-                <element signature="n#!!block;n#componentDidMount#0;n#Innerlist#0" />
-                <element signature="e#2738#2794#0" />
-                <element signature="n#!!block;n#componentWillReceiveProps#0;n#Innerlist#0" />
-                <element signature="e#3024#3402#0" />
-                <element signature="e#3074#3288#0" />
-                <element signature="e#3312#3394#0" />
-                <element signature="n#!!block;n#componentDidUpdate#0;n#Innerlist#0" />
-                <element signature="n#!!block;n#componentWillUnmount#0;n#Innerlist#0" />
-                <element signature="e#3614#3651#0" />
-                <element signature="e#3682#3719#0" />
-                <element signature="n#!!block;n#render#0;n#Innerlist#0" />
-                <element signature="e#3977#5025#0" />
-                <element signature="e#4033#4124#0" />
-                <element signature="e#4242#5010#0" />
-                <element signature="e#4537#4996#0" />
-                <element signature="e#4615#4982#0" />
-                <element signature="e#4642#4966#0" />
-                <element signature="e#4884#4948#0" />
+                <element signature="e#0#32#0" expanded="true" />
+                <element signature="n#!!block;n#getOffsetTop#0;n#Projector#0" />
+                <element signature="n#!!block;n#setOffsetTop#0;n#Projector#0" />
+                <element signature="n#!!doc;n#constructor#0;n#Projector#0" />
+                <element signature="n#!!block;n#constructor#0;n#Projector#0" />
+                <element signature="n#!!doc;n#scrollX#0;n#Projector#0" />
+                <element signature="n#!!block;n#scrollX#0;n#Projector#0" />
+                <element signature="n#!!doc;n#scrollY#0;n#Projector#0" />
+                <element signature="n#!!block;n#scrollY#0;n#Projector#0" />
+                <element signature="n#!!block;n#scrollBy#0;n#Projector#0" />
+                <element signature="n#!!block;n#scrollTo#0;n#Projector#0" />
+                <element signature="n#!!block;n#addResizeListener#0;n#Projector#0" />
+                <element signature="n#!!block;n#addScrollListener#0;n#Projector#0" />
+                <element signature="n#!!doc;n#_getScreenHeight#0;n#Projector#0" />
+                <element signature="n#!!block;n#_getScreenHeight#0;n#Projector#0" />
+                <element signature="n#!!doc;n#_addListener#0;n#Projector#0" />
+                <element signature="n#!!block;n#_addListener#0;n#Projector#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.tsx" pinned="false" current-in-tab="true">
+      <file leaf-file-name="frame.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/frame.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="infinite-scroll.tsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/infinite-scroll.tsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="295">
+              <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+              <folding>
+                <element signature="e#61#92#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="movieList.tsx" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/movieList.tsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+                <element signature="n#!!block;n#render#0;n#MovieList#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.tsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="91" lean-forward="true" selection-start-line="91" selection-end-line="91" />
+            <state relative-caret-position="-23">
+              <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -88,6 +108,7 @@
       <find>_scroller</find>
       <find>_windowRefRef</find>
       <find>./component</find>
+      <find>= 0</find>
     </findStrings>
     <replaceStrings>
       <replace>Updator._caculateTotalItemRect</replace>
@@ -99,13 +120,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/lib/offset-adjust.ts" />
-        <option value="$PROJECT_DIR$/src/lib/Rectangle.ts" />
-        <option value="$PROJECT_DIR$/src/lib/updator.tsx" />
-        <option value="$PROJECT_DIR$/src/lib/super-list.tsx" />
-        <option value="$PROJECT_DIR$/src/lib/virtual-list.ts" />
-        <option value="$PROJECT_DIR$/src/lib/projection.tsx" />
-        <option value="$PROJECT_DIR$/src/component/projection.tsx" />
         <option value="$PROJECT_DIR$/src/component/lib/footage.ts" />
         <option value="$PROJECT_DIR$/src/component/lib/viewport.ts" />
         <option value="$PROJECT_DIR$/src/component/lib/rectangle.ts" />
@@ -117,7 +131,6 @@
         <option value="$PROJECT_DIR$/src/component/virtual-list.ts" />
         <option value="$PROJECT_DIR$/tsconfig.json" />
         <option value="$PROJECT_DIR$/tslint.json" />
-        <option value="$PROJECT_DIR$/src/index.tsx" />
         <option value="$PROJECT_DIR$/src/component/virtual-list.tsx" />
         <option value="$PROJECT_DIR$/src/component/lib/projection-moment.ts" />
         <option value="$PROJECT_DIR$/src/component/projection-list.tsx" />
@@ -144,12 +157,20 @@
         <option value="$PROJECT_DIR$/src/component/movie.ts" />
         <option value="$PROJECT_DIR$/src/component/projector.ts" />
         <option value="$PROJECT_DIR$/src/component/innerlist.tsx" />
-        <option value="$PROJECT_DIR$/src/test/frame.ts" />
-        <option value="$PROJECT_DIR$/src/test/movie.ts" />
         <option value="$PROJECT_DIR$/src/test/projector.ts" />
-        <option value="$PROJECT_DIR$/src/test/innerlist.tsx" />
         <option value="$PROJECT_DIR$/src/main.tsx.ts" />
+        <option value="$PROJECT_DIR$/src/test/coordinate.ts" />
+        <option value="$PROJECT_DIR$/src/test/module/rectangle.ts" />
+        <option value="$PROJECT_DIR$/src/test/module/screen.ts" />
+        <option value="$PROJECT_DIR$/src/index.tsx" />
+        <option value="$PROJECT_DIR$/src/test/lib/projection.ts" />
+        <option value="$PROJECT_DIR$/src/test/frame.ts" />
+        <option value="$PROJECT_DIR$/src/test/innerlist.tsx" />
+        <option value="$PROJECT_DIR$/src/test/movielist.tsx" />
+        <option value="$PROJECT_DIR$/src/test/movie.ts" />
+        <option value="$PROJECT_DIR$/src/test/infinite-scroll.tsx" />
         <option value="$PROJECT_DIR$/src/main.tsx" />
+        <option value="$PROJECT_DIR$/src/test/movieList.tsx" />
       </list>
     </option>
   </component>
@@ -186,6 +207,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -198,11 +220,16 @@
               <item name="untitled1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="untitled1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="untitled1" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -221,17 +248,17 @@
     <property name="typescript-compiler-editor-notification" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\seven\WebstormProjects\untitled1\src\test" />
-      <recent name="C:\Users\seven\WebstormProjects\untitled1\src\component\module" />
-      <recent name="C:\Users\seven\WebstormProjects\untitled1\src\lib\lib" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\seven\WebstormProjects\untitled1\src\test" />
       <recent name="C:\Users\seven\WebstormProjects\untitled1\src\component-1" />
       <recent name="C:\Users\seven\WebstormProjects\untitled1\src\component\lib" />
       <recent name="C:\Users\seven\WebstormProjects\untitled1\src\component\module" />
       <recent name="C:\Users\seven\WebstormProjects\untitled1\src\lib" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\seven\WebstormProjects\untitled1\src\test" />
+      <recent name="C:\Users\seven\WebstormProjects\untitled1\src\component\module" />
+      <recent name="C:\Users\seven\WebstormProjects\untitled1\src\lib\lib" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -285,27 +312,29 @@
       <workItem from="1529972252908" duration="9957000" />
       <workItem from="1530066640456" duration="1223000" />
       <workItem from="1530069772159" duration="8171000" />
+      <workItem from="1530334862422" duration="1528000" />
+      <workItem from="1530438673272" duration="7362000" />
+      <workItem from="1530610038223" duration="2685000" />
+      <workItem from="1530731304233" duration="5053000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="154153000" />
+    <option name="totallyTimeSpent" value="170781000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="true" />
     <layout>
+      <window_info anchor="bottom" id="TypeScript" order="7" weight="0.32890856" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.71533924" visible="true" weight="0.162317" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info id="npm" order="2" sideWeight="0.28466076" side_tool="true" weight="0.18841502" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.36873156" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32890856" />
-      <window_info anchor="bottom" id="TypeScript" order="7" weight="0.32890856" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.71533924" visible="true" weight="0.162317" />
-      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32890856" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32890856" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -314,6 +343,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32890856" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -325,37 +355,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/App.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/images.d.ts">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tsconfig.prod.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/logo.svg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/registerServiceWorker.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-912" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.test.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/lib/requestAnimationFrame.ts" />
     <entry file="file://$PROJECT_DIR$/src/component/lib/findNewSlice.js" />
     <entry file="file://$PROJECT_DIR$/src/component/lib/Viewport.js" />
@@ -389,24 +388,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="15" column="4" lean-forward="true" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/@types/react/index.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="541" column="13" selection-start-line="541" selection-start-column="13" selection-end-line="541" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -415,13 +400,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/typescript/lib/lib.dom.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="15912" column="17" selection-start-line="15912" selection-start-column="17" selection-end-line="15912" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -444,9 +422,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-57">
           <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -507,67 +482,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
           <caret line="2" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/rect.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="950">
-          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/module/screen.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="74" column="15" lean-forward="true" selection-start-line="74" selection-start-column="15" selection-end-line="74" selection-end-column="15" />
-          <folding>
-            <element signature="n#!!doc;n#Screen#0" />
-            <element signature="n#!!doc;n#constructor#0;n#Screen#0" />
-            <element signature="n#!!block;n#constructor#0;n#Screen#0" />
-            <element signature="n#!!block;n#getOffsetTop#0;n#Screen#0" />
-            <element signature="n#!!block;n#setOffsetTop#0;n#Screen#0" />
-            <element signature="e#816#1342#0" />
-            <element signature="n#!!block;n#getRectRelativeTo#0;n#Screen#0" />
-            <element signature="e#1769#1828#0" />
-            <element signature="e#1855#1923#0" />
-            <element signature="n#!!block;n#scrollX#0;n#Screen#0" />
-            <element signature="e#1999#2084#0" />
-            <element signature="n#!!block;n#scrollY#0;n#Screen#0" />
-            <element signature="e#2197#2281#0" />
-            <element signature="n#!!block;n#scrollBy#0;n#Screen#0" />
-            <element signature="e#2384#2438#0" />
-            <element signature="e#2444#2498#0" />
-            <element signature="n#!!block;n#scrollTo#0;n#Screen#0" />
-            <element signature="e#2633#2681#0" />
-            <element signature="e#2687#2734#0" />
-            <element signature="n#!!block;n#addResizeListener#0;n#Screen#0" />
-            <element signature="n#!!block;n#addScrollListener#0;n#Screen#0" />
-            <element signature="n#!!block;n#addProgrammaticScrollListener#0;n#Screen#0" />
-            <element signature="n#!!block;n#removeProgrammaticScrollListener#0;n#Screen#0" />
-            <element signature="n#!!doc;n#_getScreenHeight#0;n#Screen#0" />
-            <element signature="n#!!block;n#_getScreenHeight#0;n#Screen#0" />
-            <element signature="e#3870#4007#0" />
-            <element signature="e#4013#4071#0" />
-            <element signature="n#!!doc;n#_addListener#0;n#Screen#0" />
-            <element signature="n#!!block;n#_addListener#0;n#Screen#0" />
-            <element signature="e#4404#4436#0" />
-            <element signature="e#4542#4605#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/rect.ts" />
     <entry file="file://$PROJECT_DIR$/src/component/list.tsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="589">
           <caret line="40" column="2" selection-start-line="40" selection-start-column="2" selection-end-line="40" selection-end-column="2" />
-          <folding>
-            <element signature="n#!!doc;n#getHeightFromClientRect#0;n#List#0" />
-            <element signature="n#!!doc;n#getRenderedItemHeightMap#0;n#List#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -582,42 +504,139 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="704">
           <caret line="231" lean-forward="true" selection-start-line="231" selection-end-line="231" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-            <element signature="e#1146#1198#0" />
-            <element signature="e#1203#1300#0" />
-            <element signature="e#2061#2189#0" />
-            <element signature="e#2265#2346#0" />
-            <element signature="n#!!doc;n#scrollToIndex#0;n#Controller#0" />
-            <element signature="n#!!block;n#scrollToIndex#0;n#Controller#0" />
-            <element signature="e#2713#2743#0" />
-            <element signature="e#2748#2825#0" />
-            <element signature="e#2866#3536#0" />
-            <element signature="e#3541#3635#0" />
-            <element signature="n#!!block;n#_getSnapshot#0;n#Controller#0" />
-            <element signature="n#!!doc;n#_getScreenRect#0;n#Controller#0" />
-            <element signature="n#!!doc;n#_computeBlankSpace#0;n#Controller#0" />
-            <element signature="n#!!block;n#_computeBlankSpace#0;n#Controller#0" />
-            <element signature="n#!!doc;n#componentDidMount#0;n#Controller#0" />
-            <element signature="n#!!block;n#componentWillReceiveProps#0;n#Controller#0" />
-            <element signature="n#!!block;n#componentWillUpdate#0;n#Controller#0" />
-            <element signature="n#!!block;n#componentDidUpdate#0;n#Controller#0" />
-            <element signature="n#!!block;n#componentWillUnmount#0;n#Controller#0" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/lib/rAF.ts">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/super-list.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/module/trigger.ts" />
+    <entry file="file://$PROJECT_DIR$/node_modules/typescript/lib/lib.es5.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-868">
+          <caret line="1381" column="5" selection-start-line="1381" selection-start-column="5" selection-end-line="1381" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/typescript/lib/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="3069" column="4" selection-start-line="3069" selection-start-column="4" selection-end-line="3069" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/module/screen.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="789">
+          <caret line="74" column="15" lean-forward="true" selection-start-line="74" selection-start-column="15" selection-end-line="74" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/module/snapshot.ts" />
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="89" column="8" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/@types/react/index.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="542" column="13" selection-start-line="542" selection-start-column="13" selection-end-line="542" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/coordinate.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/module/rectangle.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="102" column="4" lean-forward="true" selection-start-line="102" selection-start-column="4" selection-end-line="102" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/lib/projection.ts" />
     <entry file="file://$PROJECT_DIR$/src/test/module/screen.ts">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="n#!!doc;n#Screen#0" />
+            <element signature="n#!!doc;n#constructor#0;n#Screen#0" />
+            <element signature="n#!!block;n#constructor#0;n#Screen#0" />
+            <element signature="n#!!block;n#getOffsetTop#0;n#Screen#0" />
+            <element signature="n#!!block;n#setOffsetTop#0;n#Screen#0" />
+            <element signature="n#!!doc;n#getRectRelativeTo#0;n#Screen#0" />
+            <element signature="n#!!block;n#getRectRelativeTo#0;n#Screen#0" />
+            <element signature="n#!!block;n#scrollX#0;n#Screen#0" />
+            <element signature="n#!!block;n#scrollY#0;n#Screen#0" />
+            <element signature="n#!!block;n#scrollBy#0;n#Screen#0" />
+            <element signature="n#!!block;n#scrollTo#0;n#Screen#0" />
+            <element signature="n#!!block;n#addResizeListener#0;n#Screen#0" />
+            <element signature="n#!!block;n#addScrollListener#0;n#Screen#0" />
+            <element signature="n#!!block;n#addProgrammaticScrollListener#0;n#Screen#0" />
+            <element signature="n#!!block;n#removeProgrammaticScrollListener#0;n#Screen#0" />
+            <element signature="n#!!doc;n#_getScreenHeight#0;n#Screen#0" />
+            <element signature="n#!!block;n#_getScreenHeight#0;n#Screen#0" />
+            <element signature="n#!!doc;n#_addListener#0;n#Screen#0" />
+            <element signature="n#!!block;n#_addListener#0;n#Screen#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/frame.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/movie.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="514">
+          <caret line="113" lean-forward="true" selection-start-line="113" selection-end-line="113" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/projector.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="28" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+        <state relative-caret-position="-38">
+          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
           <folding>
+            <element signature="e#0#32#0" expanded="true" />
             <element signature="n#!!block;n#getOffsetTop#0;n#Projector#0" />
             <element signature="n#!!block;n#setOffsetTop#0;n#Projector#0" />
             <element signature="n#!!doc;n#constructor#0;n#Projector#0" />
@@ -630,8 +649,6 @@
             <element signature="n#!!block;n#scrollTo#0;n#Projector#0" />
             <element signature="n#!!block;n#addResizeListener#0;n#Projector#0" />
             <element signature="n#!!block;n#addScrollListener#0;n#Projector#0" />
-            <element signature="n#!!block;n#addProgrammaticScrollListener#0;n#Projector#0" />
-            <element signature="n#!!block;n#removeProgrammaticScrollListener#0;n#Projector#0" />
             <element signature="n#!!doc;n#_getScreenHeight#0;n#Projector#0" />
             <element signature="n#!!block;n#_getScreenHeight#0;n#Projector#0" />
             <element signature="n#!!doc;n#_addListener#0;n#Projector#0" />
@@ -640,103 +657,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/movie.ts">
+    <entry file="file://$PROJECT_DIR$/src/test/infinite-scroll.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="295">
+          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
-            <element signature="n#!!block;n#constructor#0;n#Movie#0" />
-            <element signature="n#!!block;n#height#0;n#Movie#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/frame.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="3" selection-start-column="3" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/super-list.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/module/trigger.ts">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/module/snapshot.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1102">
-          <caret line="58" lean-forward="true" selection-end-line="160" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/innerlist.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" />
-          <folding>
-            <element signature="e#412#682#0" />
-            <element signature="e#686#855#0" />
-            <element signature="e#971#1081#0" />
-            <element signature="e#1202#1823#0" />
-            <element signature="e#1305#1326#0" />
-            <element signature="e#1429#1499#0" />
-            <element signature="e#1627#1817#0" />
-            <element signature="e#1873#1954#0" />
-            <element signature="e#2080#2110#0" />
-            <element signature="e#2115#2209#0" />
-            <element signature="e#2259#2492#0" />
-            <element signature="e#2285#2306#0" />
-            <element signature="n#!!doc;n#componentDidMount#0;n#Innerlist#0" />
-            <element signature="n#!!block;n#componentDidMount#0;n#Innerlist#0" />
-            <element signature="e#2738#2794#0" />
-            <element signature="n#!!block;n#componentWillReceiveProps#0;n#Innerlist#0" />
-            <element signature="e#3024#3402#0" />
-            <element signature="e#3074#3288#0" />
-            <element signature="e#3312#3394#0" />
-            <element signature="n#!!block;n#componentDidUpdate#0;n#Innerlist#0" />
-            <element signature="n#!!block;n#componentWillUnmount#0;n#Innerlist#0" />
-            <element signature="e#3614#3651#0" />
-            <element signature="e#3682#3719#0" />
-            <element signature="n#!!block;n#render#0;n#Innerlist#0" />
-            <element signature="e#3977#5025#0" />
-            <element signature="e#4033#4124#0" />
-            <element signature="e#4242#5010#0" />
-            <element signature="e#4537#4996#0" />
-            <element signature="e#4615#4982#0" />
-            <element signature="e#4642#4966#0" />
-            <element signature="e#4884#4948#0" />
+            <element signature="e#61#92#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="91" lean-forward="true" selection-start-line="91" selection-end-line="91" />
+        <state relative-caret-position="-23">
+          <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/movieList.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+            <element signature="n#!!block;n#render#0;n#MovieList#0" />
           </folding>
         </state>
       </provider>

@@ -9,7 +9,6 @@ export class Projector {
   private readonly _screenRef: HTMLDivElement;
   private readonly _windowRef: Window;
   private readonly _useWindowAsScreen: boolean;
-  private _programScrollListeners: Function[] = [];
   private _offsetTop: number;
 
   getOffsetTop() {
@@ -66,16 +65,7 @@ export class Projector {
 
     return {
       sliceStart: startIndex,
-      sliceEnd: endIndex,
-      fakeSpaceAbove:
-        frameList.length <= 0
-          ? 0
-          : frameList[startIndex].rect.getTop() - frameList[0].rect.getTop(),
-      fakeSpaceBelow:
-        endIndex >= frameList.length
-          ? 0
-          : frameList[frameList.length - 1].rect.getBottom() -
-            frameList[endIndex].rect.getTop()
+      sliceEnd: endIndex
     };
   };
 
@@ -105,7 +95,7 @@ export class Projector {
   /**
    * 获得x轴方向的已滑动距离
    *
-   * @returns {number}
+   * @returns x轴方向的scrolled distance
    */
   scrollX() {
     if (this._useWindowAsScreen) {
@@ -118,7 +108,7 @@ export class Projector {
   /**
    * 获得y轴方向的已滑动距离
    *
-   * @returns {number}
+   * @returns
    */
   scrollY() {
     if (this._useWindowAsScreen) {
@@ -134,8 +124,6 @@ export class Projector {
     } else {
       this._screenRef.scrollTop += vertically;
     }
-
-    this._programScrollListeners.forEach(listener => listener(vertically));
   }
 
   scrollTo(yPos) {
@@ -144,8 +132,6 @@ export class Projector {
     } else {
       this._screenRef.scrollTop = yPos;
     }
-
-    this._programScrollListeners.forEach(listener => listener(yPos));
   }
 
   addResizeListener(listener) {
@@ -164,24 +150,12 @@ export class Projector {
     );
   }
 
-  // listener triggered by programmatic scroll
-  addProgrammaticScrollListener(listener) {
-    if (this._programScrollListeners.indexOf(listener) < 0)
-      this._programScrollListeners.push(listener);
-    return () => this.removeProgrammaticScrollListener(listener);
-  }
-
-  removeProgrammaticScrollListener(listener) {
-    const index = this._programScrollListeners.indexOf(listener);
-    if (index > -1) this._programScrollListeners.splice(index, 1);
-  }
-
   /**
    * 获取用户观看屏幕的高度
    *
    * Properties `clientWidth/clientHeight` only account for the visible part of the element.
    *
-   * @return {number} 返回屏幕的高度
+   * @return 返回屏幕的高度
    */
   private _getScreenHeight(): number {
     let screenHeight;
@@ -202,7 +176,7 @@ export class Projector {
    * @param event 希望侦听的事件名称，例如："scroll" or "resize"
    * @param listener 事件侦听处理函数
    * @param target 希望侦听的目标对象
-   * @return {() => void} 调用此返回函数可以取消侦听事件
+   * @return 调用此返回函数可以取消侦听事件
    */
   private _addListener(event: string, listener: Function, target) {
     const eventCallback = () => {
