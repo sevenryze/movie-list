@@ -33,10 +33,6 @@ class MainApp extends React.Component<
     });
   };
 
-  componentDidMount() {
-    //this.addAfter();
-  }
-
   addAfter = async () => {
     this.setState({
       isFetchData: true
@@ -55,6 +51,10 @@ class MainApp extends React.Component<
       movie: this.state.movie.appendFrameList(newData)
     });
   };
+
+  componentDidMount() {
+    //this.addAfter();
+  }
 
   renderItem = (item, index) => {
     return (

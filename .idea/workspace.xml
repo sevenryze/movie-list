@@ -66,8 +66,8 @@
       <file leaf-file-name="movieList.tsx" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/movieList.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
+            <state relative-caret-position="209">
+              <caret line="125" lean-forward="true" selection-start-line="125" selection-end-line="125" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="n#!!block;n#render#0;n#MovieList#0" />
@@ -315,18 +315,19 @@
       <workItem from="1530334862422" duration="1528000" />
       <workItem from="1530438673272" duration="7362000" />
       <workItem from="1530610038223" duration="2685000" />
-      <workItem from="1530731304233" duration="5053000" />
+      <workItem from="1530731304233" duration="5209000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="170781000" />
+    <option name="totallyTimeSpent" value="170937000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TypeScript" order="7" weight="0.32890856" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.71533924" visible="true" weight="0.162317" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.71533924" visible="true" weight="0.162317" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
@@ -679,8 +680,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/movieList.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
+        <state relative-caret-position="209">
+          <caret line="125" lean-forward="true" selection-start-line="125" selection-end-line="125" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="n#!!block;n#render#0;n#MovieList#0" />

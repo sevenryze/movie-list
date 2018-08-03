@@ -1,13 +1,12 @@
 {
-  "name": "untitled1",
-  "version": "0.1.0",
+  "name": "movie-list",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "lodash.throttle": "^4.1.1",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-scripts-ts": "2.16.0",
-    "styled-components": "^3.3.3"
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-scripts-ts": "2.16.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -17,10 +16,10 @@
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
-    "@types/node": "^10.3.4",
-    "@types/react": "^16.4.1",
+    "@types/node": "^10.5.5",
+    "@types/react": "^16.4.7",
     "@types/react-dom": "^16.0.6",
-    "prettier": "^1.13.5",
-    "typescript": "^2.9.2"
+    "prettier": "^1.14.0",
+    "typescript": "^3.0.1"
   }
 }
