@@ -5,21 +5,27 @@ export class Movie {
   public frameList: Frame[] = [];
   public readonly assumedHeight: number;
 
-  constructor(options: { assumedHeight: number }) {
+  constructor(options: {
+    /**
+     * 默认的元素的高度，用来做推断计算
+     */
+    assumedHeight: number;
+  }) {
     this.assumedHeight = options.assumedHeight;
   }
 
-/*  get height(): number {
+  get height(): number {
     let frameLength = this.frameList.length;
 
     if (frameLength === 0) {
       return 0;
     }
+
     return (
       this.frameList[frameLength - 1].rect.getBottom() -
       this.frameList[0].rect.getTop()
     );
-  }*/
+  }
 
   /**
    * 更新帧的高度

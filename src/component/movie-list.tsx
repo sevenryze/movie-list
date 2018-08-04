@@ -7,12 +7,13 @@ import { Projector } from "./projector";
 
 export class MovieList extends React.PureComponent<
   {
-    // 帧渲染函数
-    itemRenderer: Function;
+    // 帧渲染函数 TODO: 返回值类型应该为html元素，找一找typescript里如何表示
+    itemRenderer: (item: any, index: number) => any;
 
-    // Buffer height / Screen height
+    // Buffer height / Screen height，控制缓冲区的大小
     bufferHeightRatio: number;
 
+    // 电影对象，可以缓存
     movie: Movie;
   },
   {
@@ -48,6 +49,8 @@ export class MovieList extends React.PureComponent<
         leading: false
       })
     );
+
+    // TODO: 增加对resize事件的监听处理
   }
 
   componentDidUpdate() {
@@ -67,8 +70,6 @@ export class MovieList extends React.PureComponent<
   }
 
   render() {
-    console.log(`rendering`);
-
     // 清除临时缓存
     this._renderedFrameHeights = {};
 
@@ -98,8 +99,8 @@ export class MovieList extends React.PureComponent<
               key: actualIndex,
               ref: (ref: HTMLDivElement) => {
                 if (ref) {
-                  //let height = ref.getBoundingClientRect().height;
                   // TODO: 搞清楚使用getBoundingClientRect()到底会不会影响性能。
+                  //let height = ref.getBoundingClientRect().height;
                   let height = ref.offsetHeight;
 
                   this._renderedFrameHeights[actualIndex] = height;
@@ -116,7 +117,7 @@ export class MovieList extends React.PureComponent<
     );
   }
 
-  // 创建投影和快照的调度器
+  // 创建投影计算调度器
   private _scheduleProjection = createScheduler(() => {
     const { movie, bufferHeightRatio } = this.props;
 
@@ -130,10 +131,6 @@ export class MovieList extends React.PureComponent<
       movie: this.props.movie,
       bufferRatio: bufferHeightRatio
     });
-
-    console.log(
-      `Projecting result: ${JSON.stringify(result)}, scrollY: ${window.scrollY}`
-    );
 
     this.setState({
       renderSliceStart: result.sliceStart,
@@ -159,10 +156,7 @@ export class MovieList extends React.PureComponent<
       this._renderedFrameHeights
     );
 
-    console.log(`heightError: ${heightError}`);
     if (heightError !== 0 || isMovieFrameListChange) this._scheduleProjection();
-
-    console.log(`stable stage`);
   };
 
   private _getRenderFakeSpace = () => {

@@ -4,9 +4,12 @@
     "moduleResolution": "node",
     "target": "es2015",
     "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
     "removeComments": true,
     "noImplicitAny": false,
-    "jsx": "react"
+    "jsx": "react",
+    "outDir": "dist"
   },
   "include": ["src"]
 }

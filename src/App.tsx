@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Movie, MovieList } from "./lib";
+import { Movie, MovieList } from "./component";
 
 function getData(num, from = 0) {
   return new Array(num).fill(1).map((_, index) => ({
