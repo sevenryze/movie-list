@@ -35,6 +35,6 @@
   "scripts": {
     "dev": "webpack-dev-server --config webpack-config.js --hot",
     "build": "tsc --project .",
-    "publish": "npm run build && npm publish --access=public"
+    "commit-to-npm": "npm run build && npm publish --access=public"
   }
 }
