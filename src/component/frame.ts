@@ -1,12 +1,21 @@
-import { Rectangle } from "./module/rectangle";
+import { createRectangle, IRectangle } from "./module/rectangle";
 
-export class Frame {
-  public rect: Rectangle;
+export interface IFrame {
+  rect: IRectangle;
+  content: object;
+}
 
-  public content: object;
-
-  constructor(content: object, rect: Rectangle = new Rectangle()) {
-    this.content = content;
-    this.rect = rect;
-  }
+export function createFrame(options: {
+  content: object;
+  rect: {
+    top: number;
+    left: number;
+    height: number;
+    width: number;
+  };
+}): IFrame {
+  return {
+    content: options.content,
+    rect: createRectangle({ ...options.rect })
+  };
 }

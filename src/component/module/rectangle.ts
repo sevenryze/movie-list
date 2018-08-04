@@ -101,9 +101,9 @@ export class Rectangle {
   /**
    * 位移变换到新位置，移动距离为x和y
    *
-   * @param {number} x 横向移动距离
-   * @param {number} y 纵向移动距离
-   * @returns {Rectangle} 经过变换后的新矩形
+   * @param  x 横向移动距离
+   * @param  y 纵向移动距离
+   * @returns  经过变换后的新矩形
    */
   translateBy(x: number, y: number) {
     let left = this.getLeft();
@@ -153,4 +153,29 @@ export class Rectangle {
   static isBetween(value: number, begin: number, end: number): boolean {
     return value >= begin && value < end;
   }
+}
+
+export interface IRectangle {
+  top: number;
+  left: number;
+  height: number;
+  width: number;
+  bottom: number;
+  right: number;
+}
+
+export function createRectangle(options: {
+  top: number;
+  left: number;
+  height: number;
+  width: number;
+}): IRectangle {
+  return {
+    top: options.top,
+    left: options.left,
+    height: options.height,
+    width: options.width,
+    bottom: options.top + options.height,
+    right: options.left + options.width
+  };
 }

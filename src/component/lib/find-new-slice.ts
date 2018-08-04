@@ -4,7 +4,7 @@
  * 新的帧添加在胶片后部时，对当前渲染帧的位置是没有影响的。
  * 而添加到胶片的前部时，我们需要更新当前渲染帧的索引以反映其在新列表中的位置，防止跳跃。
  *
- * @returns {{start: number; end: number}} 当前渲染帧的新位置
+ * @returns 当前渲染帧的新位置
  * @param options 当前渲染帧的索引范围和新添加帧的索引范围
  */
 export function mapOldFrameIndexIntoNewFilm(options: {

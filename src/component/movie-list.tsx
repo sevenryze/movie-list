@@ -1,9 +1,10 @@
-import * as React from "react";
 import throttle from "lodash.throttle";
+import * as React from "react";
 import { requestAnimationFrame } from "./lib/rAF";
 import { createScheduler } from "./lib/schedule";
-import { Movie } from "./movie";
-import { Projector } from "./projector";
+import { addScrollListener } from "./listener";
+import { IMovie, updateFrameHeights } from "./movie";
+import { createScreenRelativeToMovie, IScreen, project } from "./screen";
 
 export class MovieList extends React.PureComponent<
   {
@@ -14,7 +15,10 @@ export class MovieList extends React.PureComponent<
     bufferHeightRatio: number;
 
     // 电影对象，可以缓存
-    movie: Movie;
+    movie: IMovie;
+
+    // 是否使用全局列表
+    useWindowScroller: boolean;
   },
   {
     // 渲染帧的起始索引
@@ -30,11 +34,11 @@ export class MovieList extends React.PureComponent<
 
   private _listRef = React.createRef<HTMLDivElement>();
   private _renderedFrameHeights: Record<number, number> = {};
-  private _projector = new Projector(window);
-  private _isUnmounted;
-  private _unlistenScroll;
-  private _unlistenResize;
-  private _prevMovie: Movie;
+  private _screen: IScreen;
+  private _isUnmounted: boolean;
+  private _unlistenScroll: Function;
+  private _unlistenResize: Function;
+  private _prevMovie: IMovie;
 
   /**
    * 1. 注册scroll和resize事件的监听函数
@@ -43,11 +47,16 @@ export class MovieList extends React.PureComponent<
   componentDidMount() {
     const throttleDuration = 200;
 
-    this._unlistenScroll = this._projector.addScrollListener(
+    const target = this.props.useWindowScroller
+      ? window
+      : this._listRef.current;
+
+    this._unlistenScroll = addScrollListener(
       throttle(this._scheduleProjection, throttleDuration, {
         trailing: true,
         leading: false
-      })
+      }),
+      target
     );
 
     // TODO: 增加对resize事件的监听处理
@@ -125,11 +134,32 @@ export class MovieList extends React.PureComponent<
       return;
     }
 
-    this._projector.updateRectRelativeTo(this._listRef.current);
+    /*   this._projector.updateRectRelativeTo(this._listRef.current);
 
     const result = this._projector.project({
       movie: this.props.movie,
       bufferRatio: bufferHeightRatio
+    }); */
+
+    this._screen = createScreenRelativeToMovie(
+      {
+        top: this.props.useWindowScroller
+          ? 0
+          : this._listRef.current.getBoundingClientRect().top,
+        height: this._getScreenHeight(),
+        left: 0,
+        width: 0
+      },
+      {
+        top: this._listRef.current.getBoundingClientRect().top,
+        left: 0
+      }
+    );
+
+    const result = project({
+      bufferRatio: bufferHeightRatio,
+      movie: movie,
+      screen: this._screen
     });
 
     this.setState({
@@ -152,7 +182,8 @@ export class MovieList extends React.PureComponent<
     }
     this._prevMovie = this.props.movie;
 
-    let heightError = this.props.movie.updateFrameHeights(
+    let heightError = updateFrameHeights(
+      this.props.movie,
       this._renderedFrameHeights
     );
 
@@ -168,12 +199,32 @@ export class MovieList extends React.PureComponent<
       fakeSpaceAbove:
         frameList.length <= 0
           ? 0
-          : frameList[startIndex].rect.getTop() - frameList[0].rect.getTop(),
+          : frameList[startIndex].rect.top - frameList[0].rect.top,
       fakeSpaceBelow:
         endIndex >= frameList.length
           ? 0
-          : frameList[frameList.length - 1].rect.getBottom() -
-            frameList[endIndex].rect.getTop()
+          : frameList[frameList.length - 1].rect.bottom -
+            frameList[endIndex].rect.top
     };
+  };
+
+  /**
+   * 获取用户观看屏幕的高度
+   *
+   * Properties `clientWidth/clientHeight` only account for the visible part of the element.
+   *
+   * @return 返回屏幕的高度
+   */
+  private _getScreenHeight = (): number => {
+    let screenHeight;
+
+    if (this.props.useWindowScroller) {
+      // clientHeight仅仅包括可视范围的高，不包括已经被scroll到上面或者下面的高
+      screenHeight = window.document.documentElement.clientHeight;
+    } else {
+      screenHeight = this._listRef.current.clientHeight;
+    }
+
+    return screenHeight;
   };
 }

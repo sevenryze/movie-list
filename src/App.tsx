@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Movie, MovieList } from "./component";
+import { MovieOP, MovieList, IMovie } from "./component";
 
 function getData(num, from = 0) {
   return new Array(num).fill(1).map((_, index) => ({
@@ -14,12 +14,12 @@ function getData(num, from = 0) {
 class App extends React.Component<
   {},
   {
-    movie: Movie;
+    movie: IMovie;
     isFetchData: boolean;
   }
 > {
   state = {
-    movie: new Movie({ assumedHeight: 400 }),
+    movie: MovieOP.createMovie(400),
     isFetchData: false
   };
 
@@ -27,7 +27,7 @@ class App extends React.Component<
     let newData = getData(10, 200);
 
     this.setState({
-      movie: this.state.movie.prefixFrameList(newData)
+      movie: MovieOP.prefixFrames(this.state.movie, newData)
     });
   };
 
@@ -46,7 +46,7 @@ class App extends React.Component<
 
     this.setState({
       isFetchData: false,
-      movie: this.state.movie.appendFrameList(newData)
+      movie: MovieOP.appendFrames(this.state.movie, newData)
     });
   };
 
@@ -85,6 +85,7 @@ class App extends React.Component<
           movie={this.state.movie}
           itemRenderer={this.renderItem}
           bufferHeightRatio={0.5}
+          useWindowScroller={true}
         />
       </div>
     );
