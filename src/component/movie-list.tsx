@@ -17,8 +17,13 @@ export class MovieList extends React.PureComponent<
     // 电影对象，可以缓存
     movie: IMovie;
 
-    // 是否使用全局列表
-    useWindowScroller: boolean;
+    // 是否使用某个div作为放映屏幕
+    useDivAsScreen?: {
+      /**
+       * 屏幕div的CSS类
+       */
+      className: string;
+    };
   },
   {
     // 渲染帧的起始索引
@@ -32,7 +37,10 @@ export class MovieList extends React.PureComponent<
     renderSliceEnd: 0
   };
 
-  private _listRef = React.createRef<HTMLDivElement>();
+  // 放映屏幕的DOM div ref
+  private _screenDivRef = React.createRef<HTMLDivElement>();
+  // 长列表的DOM div ref
+  private _movieListDivRef = React.createRef<HTMLDivElement>();
   private _renderedFrameHeights: Record<number, number> = {};
   private _screen: IScreen;
   private _isUnmounted: boolean;
@@ -47,9 +55,9 @@ export class MovieList extends React.PureComponent<
   componentDidMount() {
     const throttleDuration = 200;
 
-    const target = this.props.useWindowScroller
-      ? window
-      : this._listRef.current;
+    const target = this.props.useDivAsScreen
+      ? this._screenDivRef.current
+      : window;
 
     this._unlistenScroll = addScrollListener(
       throttle(this._scheduleProjection, throttleDuration, {
@@ -86,42 +94,49 @@ export class MovieList extends React.PureComponent<
 
     return (
       <div
-        ref={this._listRef}
-        style={{
-          paddingTop: fakeSpaceAbove,
-          paddingBottom: fakeSpaceBelow
-        }}
+        className={
+          this.props.useDivAsScreen && this.props.useDivAsScreen.className
+        }
+        ref={this._screenDivRef}
       >
-        {this.props.movie.frameList
-          .slice(this.state.renderSliceStart, this.state.renderSliceEnd)
-          .map((item, index) => {
-            // 被渲染帧的实际索引
-            const actualIndex = index + this.state.renderSliceStart;
+        <div
+          ref={this._movieListDivRef}
+          style={{
+            paddingTop: fakeSpaceAbove,
+            paddingBottom: fakeSpaceBelow
+          }}
+        >
+          {this.props.movie.frameList
+            .slice(this.state.renderSliceStart, this.state.renderSliceEnd)
+            .map((item, index) => {
+              // 被渲染帧的实际索引
+              const actualIndex = index + this.state.renderSliceStart;
 
-            // 调用用户定义的帧渲染函数。
-            const reactElement = this.props.itemRenderer(
-              item.content,
-              actualIndex
-            );
+              // 调用用户定义的帧渲染函数。
+              const reactElement = this.props.itemRenderer(
+                item.content,
+                actualIndex
+              );
 
-            return React.cloneElement(reactElement, {
-              key: actualIndex,
-              ref: (ref: HTMLDivElement) => {
-                if (ref) {
-                  // TODO: 搞清楚使用getBoundingClientRect()到底会不会影响性能。
-                  //let height = ref.getBoundingClientRect().height;
-                  let height = ref.offsetHeight;
+              return React.cloneElement(reactElement, {
+                key: actualIndex,
+                ref: (ref: HTMLDivElement) => {
+                  if (ref) {
+                    // TODO: 搞清楚使用getBoundingClientRect()到底会不会影响性能。
+                    //let height = ref.getBoundingClientRect().height;
+                    let height = ref.offsetHeight;
 
-                  this._renderedFrameHeights[actualIndex] = height;
+                    this._renderedFrameHeights[actualIndex] = height;
 
-                  // 如果有用户自定义的ref函数，调用它。
-                  if ("function" === typeof reactElement.ref) {
-                    reactElement.ref(ref);
+                    // 如果有用户自定义的ref函数，调用它。
+                    if ("function" === typeof reactElement.ref) {
+                      reactElement.ref(ref);
+                    }
                   }
                 }
-              }
-            });
-          })}
+              });
+            })}
+        </div>
       </div>
     );
   }
@@ -134,24 +149,17 @@ export class MovieList extends React.PureComponent<
       return;
     }
 
-    /*   this._projector.updateRectRelativeTo(this._listRef.current);
-
-    const result = this._projector.project({
-      movie: this.props.movie,
-      bufferRatio: bufferHeightRatio
-    }); */
-
     this._screen = createScreenRelativeToMovie(
       {
-        top: this.props.useWindowScroller
-          ? 0
-          : this._listRef.current.getBoundingClientRect().top,
+        top: this.props.useDivAsScreen
+          ? this._screenDivRef.current.getBoundingClientRect().top
+          : 0,
         height: this._getScreenHeight(),
         left: 0,
         width: 0
       },
       {
-        top: this._listRef.current.getBoundingClientRect().top,
+        top: this._movieListDivRef.current.getBoundingClientRect().top,
         left: 0
       }
     );
@@ -172,7 +180,7 @@ export class MovieList extends React.PureComponent<
    * 矫正当前的投影
    */
   private _correctProjection = () => {
-    if (!this._listRef.current) {
+    if (!this._screenDivRef.current) {
       return;
     }
 
@@ -216,15 +224,9 @@ export class MovieList extends React.PureComponent<
    * @return 返回屏幕的高度
    */
   private _getScreenHeight = (): number => {
-    let screenHeight;
-
-    if (this.props.useWindowScroller) {
-      // clientHeight仅仅包括可视范围的高，不包括已经被scroll到上面或者下面的高
-      screenHeight = window.document.documentElement.clientHeight;
-    } else {
-      screenHeight = this._listRef.current.clientHeight;
-    }
-
-    return screenHeight;
+    // clientHeight仅仅包括可视范围的高，不包括已经被scroll到上面或者下面的高
+    return this.props.useDivAsScreen
+      ? this._screenDivRef.current.clientHeight
+      : window.document.documentElement.clientHeight;
   };
 }

@@ -1,4 +1,4 @@
-import { createRectangle, IRectangle } from "./module/rectangle";
+import { createRectangle, IRectangle } from "./rectangle";
 
 export interface IFrame {
   rect: IRectangle;

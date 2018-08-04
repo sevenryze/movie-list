@@ -17,7 +17,7 @@ function getData(num, from = 0) {
   }));
 }
 
-class App extends React.Component<
+class App2 extends React.Component<
   {},
   {
     movie: IMovie;
@@ -90,11 +90,14 @@ class App extends React.Component<
         <MovieList
           movie={this.state.movie}
           itemRenderer={this.renderItem}
-          bufferHeightRatio={0.5}
+          bufferHeightRatio={0}
+          useDivAsScreen={{
+            className: "list"
+          }}
         />
       </div>
     );
   }
 }
 
-export default App;
+export default App2;

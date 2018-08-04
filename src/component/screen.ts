@@ -1,4 +1,4 @@
-import { IRectangle, createRectangle } from "./module/rectangle";
+import { IRectangle, createRectangle } from "./rectangle";
 import { IMovie } from "./movie";
 
 export interface IPoint {

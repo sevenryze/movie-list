@@ -1,5 +1,5 @@
 import { IFrame, createFrame } from "./frame";
-import { createRectangle } from "./module/rectangle";
+import { createRectangle } from "./rectangle";
 
 export interface IMovie {
   frameList: IFrame[];
@@ -14,7 +14,7 @@ export function createMovie(assumedHeight: number): IMovie {
 }
 
 /**
- * 更新movie对象的尺寸
+ * 更新movie对象中帧的尺寸
  *
  * TODO: 这个函数会改变传入的movie的属性，也许会有一个没有side-effect的设计？
  *
@@ -62,6 +62,14 @@ function getTotalHeight(movie: IMovie): number {
   return frameList[frameList.length - 1].rect.bottom - frameList[0].rect.top;
 }
 
+/**
+ * 将新的数据添加到电影的前面
+ *
+ * 暂时不支持基于anchor的scrollbar调整。因此添加数据到影片前方会导致滚动条有些许抖动。
+ *
+ * @param movie 旧的影片
+ * @param data 新加入的数据数组
+ */
 export function prefixFrames(movie: IMovie, data: any[]): IMovie {
   if (!Array.isArray(data)) {
     throw new MovieError("新添加的列表数据必须为数据类型");
@@ -92,6 +100,12 @@ export function prefixFrames(movie: IMovie, data: any[]): IMovie {
   return newMovie;
 }
 
+/**
+ * 将数据附加到影片后面
+ *
+ * @param movie 旧的影片
+ * @param data 新添加的数据数组
+ */
 export function appendFrames(movie: IMovie, data: any[]): IMovie {
   if (!Array.isArray(data)) {
     throw new MovieError("新添加的列表数据必须为数据类型");

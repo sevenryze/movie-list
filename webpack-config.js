@@ -6,7 +6,7 @@ module.exports = {
   mode: "development",
 
   entry: {
-    app: "./src/index.tsx"
+    app: "./src/window-scroller.tsx"
   },
   output: {
     path: path.resolve(__dirname, "dist"),
