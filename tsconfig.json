@@ -1,23 +1,12 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "outDir": "build/dist",
-    "module": "esnext",
-    "target": "es5",
-    "lib": ["es6", "dom"],
-    "sourceMap": true,
-    "jsx": "react",
+    "module": "es2015",
     "moduleResolution": "node",
-    "rootDir": "src",
-    "suppressImplicitAnyIndexErrors": true
+    "target": "es2015",
+    "sourceMap": true,
+    "removeComments": true,
+    "noImplicitAny": false,
+    "jsx": "react"
   },
-  "exclude": [
-    "node_modules",
-    "build",
-    "scripts",
-    "acceptance-tests",
-    "webpack",
-    "jest",
-    "src/setupTests.ts"
-  ]
+  "include": ["src"]
 }

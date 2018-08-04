@@ -2,24 +2,39 @@
   "name": "movie-list",
   "version": "1.0.0",
   "private": true,
+  "files": [
+    "src/lib"
+  ],
+  "main": "src/lib/index.tsx",
+  "types": "src/lib/index.tsx",
   "dependencies": {
-    "lodash.throttle": "^4.1.1",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-scripts-ts": "2.16.0"
-  },
-  "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
-  },
-  "devDependencies": {
-    "@types/jest": "^22.2.3",
-    "@types/node": "^10.5.5",
     "@types/react": "^16.4.7",
     "@types/react-dom": "^16.0.6",
+    "lodash.throttle": "^4.1.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
     "prettier": "^1.14.0",
-    "typescript": "^3.0.1"
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-hot-loader": "^4.3.4",
+    "styled-components": "^3.4.0",
+    "ts-loader": "^4.4.2",
+    "typescript": "^3.0.1",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
+  },
+  "peerDependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  },
+  "scripts": {
+    "dev": "webpack-dev-server --config webpack-config.js --hot",
+    "build": "node scripts/build.js",
+    "test": "node scripts/test.js --env=jsdom"
   }
 }
