@@ -103,7 +103,8 @@ export class MovieList extends React.PureComponent<
           ref={this._movieListDivRef}
           style={{
             paddingTop: fakeSpaceAbove,
-            paddingBottom: fakeSpaceBelow
+            paddingBottom: fakeSpaceBelow,
+            flexDirection: "column"
           }}
         >
           {this.props.movie.frameList
@@ -112,29 +113,22 @@ export class MovieList extends React.PureComponent<
               // 被渲染帧的实际索引
               const actualIndex = index + this.state.renderSliceStart;
 
-              // 调用用户定义的帧渲染函数。
-              const reactElement = this.props.itemRenderer(
-                item.content,
-                actualIndex
-              );
+              return (
+                <div
+                  key={actualIndex}
+                  ref={(ref: HTMLDivElement) => {
+                    if (ref) {
+                      // TODO: 搞清楚使用getBoundingClientRect()到底会不会影响性能。
+                      //let height = ref.getBoundingClientRect().height;
+                      let height = ref.offsetHeight;
 
-              return React.cloneElement(reactElement, {
-                key: actualIndex,
-                ref: (ref: HTMLDivElement) => {
-                  if (ref) {
-                    // TODO: 搞清楚使用getBoundingClientRect()到底会不会影响性能。
-                    //let height = ref.getBoundingClientRect().height;
-                    let height = ref.offsetHeight;
-
-                    this._renderedFrameHeights[actualIndex] = height;
-
-                    // 如果有用户自定义的ref函数，调用它。
-                    if ("function" === typeof reactElement.ref) {
-                      reactElement.ref(ref);
+                      this._renderedFrameHeights[actualIndex] = height;
                     }
-                  }
-                }
-              });
+                  }}
+                >
+                  {this.props.itemRenderer(item.content, actualIndex)}
+                </div>
+              );
             })}
         </div>
       </div>

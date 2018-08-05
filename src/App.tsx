@@ -61,18 +61,8 @@ class App extends React.Component<
   }
 
   renderItem = (item, index) => {
-    return (
-      <div
-        className="item"
-        style={{
-          //minHeight: item.height,
-          ...(index % 2 !== 0 ? { backgroundColor: "#ccc" } : {})
-        }}
-        js-index={index}
-      >
-        {index + ` ----------- ` + "好".repeat(item.height + 100)}
-      </div>
-    );
+
+    return <Showcase item={item} index={index} />;
   };
 
   render() {
@@ -92,6 +82,28 @@ class App extends React.Component<
           itemRenderer={this.renderItem}
           bufferHeightRatio={0.5}
         />
+      </div>
+    );
+  }
+}
+
+class Showcase extends React.Component<{
+  item: any;
+  index: number;
+}> {
+  render() {
+    return (
+      <div
+        className="item"
+        style={{
+          //minHeight: item.height,
+          ...(this.props.index % 2 !== 0 ? { backgroundColor: "#ccc" } : {})
+        }}
+        js-index={this.props.index}
+      >
+        {this.props.index +
+          ` ----------- ` +
+          "好".repeat(this.props.item.height + 100)}
       </div>
     );
   }
