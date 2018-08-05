@@ -119,8 +119,8 @@ export class MovieList extends React.PureComponent<
                   ref={(ref: HTMLDivElement) => {
                     if (ref) {
                       // TODO: 搞清楚使用getBoundingClientRect()到底会不会影响性能。
-                      //let height = ref.getBoundingClientRect().height;
-                      let height = ref.offsetHeight;
+                      let height = ref.getBoundingClientRect().height;
+                      //let height = ref.offsetHeight;
 
                       this._renderedFrameHeights[actualIndex] = height;
                     }
