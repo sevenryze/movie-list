@@ -61,7 +61,6 @@ class App extends React.Component<
   }
 
   renderItem = (item, index) => {
-
     return <Showcase item={item} index={index} />;
   };
 
@@ -77,11 +76,11 @@ class App extends React.Component<
 
         <div className="App__head">Site Head</div>
 
-        <MovieList
-          movie={this.state.movie}
-          itemRenderer={this.renderItem}
-          bufferHeightRatio={0.5}
-        />
+        <MovieList movie={this.state.movie} bufferHeightRatio={0.5}>
+          {(item, index) => {
+            return <Showcase item={item} index={index} />;
+          }}
+        </MovieList>
       </div>
     );
   }

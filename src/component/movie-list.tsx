@@ -6,25 +6,35 @@ import { addScrollListener } from "./listener";
 import { IMovie, updateFrameHeights } from "./movie";
 import { createScreenRelativeToMovie, IScreen, project } from "./screen";
 
-export class MovieList extends React.PureComponent<
-  {
-    // 帧渲染函数 TODO: 返回值类型应该为html元素，找一找typescript里如何表示
-    itemRenderer: (item: any, index: number) => any;
+type Props = {
+  // Buffer height / Screen height，控制缓冲区的大小
+  bufferHeightRatio: number;
 
-    // Buffer height / Screen height，控制缓冲区的大小
-    bufferHeightRatio: number;
+  // 电影对象，可以缓存
+  movie: IMovie;
 
-    // 电影对象，可以缓存
-    movie: IMovie;
+  // 是否使用某个div作为放映屏幕
+  useDivAsScreen?: {
+    /**
+     * 屏幕div的CSS类
+     */
+    className: string;
+  };
+} & RenderProps;
 
-    // 是否使用某个div作为放映屏幕
-    useDivAsScreen?: {
-      /**
-       * 屏幕div的CSS类
-       */
-      className: string;
+/**
+ * 帧渲染函数
+ */
+type RenderProps =
+  | {
+      children: (item: any, index: number) => any;
+    }
+  | {
+      itemRenderer: (item: any, index: number) => any;
     };
-  },
+
+export class MovieList extends React.PureComponent<
+  Props,
   {
     // 渲染帧的起始索引
     renderSliceStart: number;
@@ -126,7 +136,13 @@ export class MovieList extends React.PureComponent<
                     }
                   }}
                 >
-                  {this.props.itemRenderer(item.content, actualIndex)}
+                  {// TODO: 这里是一个ts编译器的bug。当同时使用intersection和union时，会无法识别props的类型
+                  (this.props as any).itemRenderer
+                    ? (this.props as any).itemRenderer(
+                        item.content,
+                        actualIndex
+                      )
+                    : (this.props as any).children(item.content, actualIndex)}
                 </div>
               );
             })}

@@ -106,7 +106,7 @@ class App extends React.Component<
           movie={this.state.movie}
           itemRenderer={this.renderItem}
           bufferHeightRatio={0.5}
-        />
+        /> // 也可以使用children as function的形式
       </div>
     );
   }
