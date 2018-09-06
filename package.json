@@ -8,11 +8,11 @@
   "main": "dist/component/index.js",
   "types": "dist/component/index.d.ts",
   "dependencies": {
-    "@types/react": "^16.4.7",
-    "@types/react-dom": "^16.0.6",
     "lodash.throttle": "^4.1.1"
   },
   "devDependencies": {
+    "@types/react": "^16.4.7",
+    "@types/react-dom": "^16.0.6",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "file-loader": "^1.1.11",
