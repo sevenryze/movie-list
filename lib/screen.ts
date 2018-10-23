@@ -30,19 +30,18 @@ export function project(options: { screen: IScreen; movie: IMovie; bufferRatio: 
   const renderRectTop = screen.rectRelativeToMovie.top - bufferHeight;
   const renderRectBottom = screen.rectRelativeToMovie.bottom + bufferHeight;
 
-  let startIndex = frameList.findIndex(frame => frame.rect.bottom > renderRectTop);
+  let startIndex = frameList.findIndex(frame => renderRectTop < frame.rect.bottom);
   if (startIndex < 0) {
     startIndex = frameList.length - 1;
   }
 
-  let endIndex = frameList.findIndex(frame => frame.rect.bottom >= renderRectBottom);
+  let endIndex = frameList.findIndex(frame => renderRectBottom < frame.rect.bottom);
   if (endIndex < 0) {
-    // Array.slice(start, end), `end` NOT included
-    endIndex = frameList.length;
+    endIndex = frameList.length - 1;
   }
 
   return {
-    sliceEnd: endIndex,
-    sliceStart: startIndex
+    renderEnd: endIndex,
+    renderStart: startIndex
   };
 }

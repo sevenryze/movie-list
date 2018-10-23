@@ -10,37 +10,56 @@ export function createMovie(assumedHeight: number): IMovie {
 }
 
 /**
- * 更新movie对象中帧的尺寸
+ * Update the height of frame with the actual rendered height.
  *
- * // TODO: 这个函数会改变传入的movie的属性，也许有一个没有side-effect的设计？
- *
- * @param movie 影片对象
- * @param renderedHeights 实际渲染的高度map
+ * @param movie The movie object
+ * @param renderedHeights Rendered height map
+ * @returns The height error and new updated movie object
  */
-export function updateFrameHeights(movie: IMovie, renderedHeights: Record<number, number>): number {
-  const heightError = movie.frameList.reduce((errorAcc, currentFrame, currentIndex) => {
-    let tmpAcc = errorAcc;
-    let height = currentFrame.rect.height;
+export function updateFrameHeights(
+  movie: IMovie,
+  renderedHeights: Record<number, number>
+): { heightError: number; newMovie: IMovie } {
+  const result = movie.frameList.reduce(
+    (acc: { heightError: number; newFrames: IFrame[] }, currentFrame, currentIndex) => {
+      let currentHeight = currentFrame.rect.height;
 
-    if (renderedHeights[currentIndex]) {
-      height = renderedHeights[currentIndex];
+      if (renderedHeights[currentIndex]) {
+        currentHeight = renderedHeights[currentIndex];
 
-      const currentError = renderedHeights[currentIndex] - currentFrame.rect.height;
+        const currentError = currentHeight - currentFrame.rect.height;
 
-      tmpAcc = errorAcc + currentError;
+        acc.heightError = acc.heightError + currentError;
+      }
+
+      acc.newFrames.push(
+        createFrame({
+          content: currentFrame.content,
+          rect: {
+            height: currentHeight,
+            left: 0,
+            top: currentIndex === 0 ? 0 : acc.newFrames[currentIndex - 1].rect.bottom,
+            width: 0
+          }
+        })
+      );
+
+      return acc;
+    },
+    {
+      heightError: 0,
+      newFrames: []
     }
+  );
 
-    currentFrame.rect = createRectangle({
-      height,
-      left: 0,
-      top: currentIndex === 0 ? 0 : movie.frameList[currentIndex - 1].rect.bottom,
-      width: 0
-    });
+  const newMovie = createMovie(movie.assumedHeight);
 
-    return tmpAcc;
-  }, 0);
+  newMovie.frameList = result.newFrames;
 
-  return heightError;
+  return {
+    heightError: result.heightError,
+    newMovie
+  };
 }
 
 export function getTotalHeight(movie: IMovie): number {

@@ -37,8 +37,8 @@ export class MovieList extends React.PureComponent<
     itemRenderer?: (item: any, index: number) => void;
   },
   {
-    renderSliceStart: number;
-    renderSliceEnd: number;
+    renderStart: number;
+    renderEnd: number;
   }
 > {
   public static appendFrames = appendFrames;
@@ -46,8 +46,8 @@ export class MovieList extends React.PureComponent<
   public static createMovie = createMovie;
 
   public state = {
-    renderSliceEnd: 0,
-    renderSliceStart: 0
+    renderEnd: 0,
+    renderStart: 0
   };
 
   private wrapperDivRef = React.createRef<HTMLDivElement>();
@@ -61,14 +61,33 @@ export class MovieList extends React.PureComponent<
   private isUnmounted!: boolean;
   private unlistenScroll!: () => void;
   private unlistenResize!: () => void;
-  private prevMovie!: IMovie;
+  private currentMovie: IMovie = this.props.movie;
+  private prevMovie: IMovie = this.props.movie;
   private throttleDuration = 200;
 
   public componentDidMount() {
     const target = this.props.useWrapperDivAsScreen ? this.wrapperDivRef.current : window;
 
-    this.unlistenScroll = addScrollListener(this.thresholdRunProjection, target!);
-    this.unlistenResize = addResizeListener(this.thresholdRunProjection, target!);
+    this.unlistenScroll = addScrollListener(
+      throttle(this.runProjection, this.throttleDuration, {
+        leading: false,
+        trailing: true
+      }),
+      target!
+    );
+    this.unlistenResize = addResizeListener(
+      throttle(
+        () => {
+          this.forceUpdate();
+        },
+        this.throttleDuration,
+        {
+          leading: false,
+          trailing: true
+        }
+      ),
+      target!
+    );
   }
 
   public componentDidUpdate() {
@@ -88,7 +107,7 @@ export class MovieList extends React.PureComponent<
   }
 
   public render() {
-    // 清除临时缓存
+    // Clear the temp cache
     this.renderedFrameHeights = {};
 
     const { fakeSpaceAbove, fakeSpaceBelow } = this.getRenderFakeSpace();
@@ -108,10 +127,14 @@ export class MovieList extends React.PureComponent<
           }}
         >
           {this.props.movie.frameList
-            .slice(this.state.renderSliceStart, this.state.renderSliceEnd)
+            .slice(
+              this.state.renderStart,
+              // Array.slice(start, end), `end` NOT included
+              this.state.renderEnd + 1
+            )
             .map((item, index) => {
-              // 被渲染帧的实际索引
-              const actualIndex = index + this.state.renderSliceStart;
+              // The actual index of the rendered frame in the movie frame list.
+              const actualIndex = index + this.state.renderStart;
 
               return (
                 <div
@@ -174,14 +197,10 @@ export class MovieList extends React.PureComponent<
     });
 
     this.setState({
-      renderSliceEnd: result.sliceEnd,
-      renderSliceStart: result.sliceStart
+      renderEnd: result.renderEnd,
+      renderStart: result.renderStart
     });
   }, requestAnimationFrame);
-  private thresholdRunProjection = throttle(this.runProjection, this.throttleDuration, {
-    leading: false,
-    trailing: true
-  });
 
   private correctProjection = () => {
     if (!this.wrapperDivRef.current) {
@@ -194,7 +213,7 @@ export class MovieList extends React.PureComponent<
     }
     this.prevMovie = this.props.movie;
 
-    const heightError = updateFrameHeights(this.props.movie, this.renderedFrameHeights);
+    const { heightError } = updateFrameHeights(this.props.movie, this.renderedFrameHeights);
 
     if (heightError !== 0 || isMovieFrameListChange) {
       this.runProjection();
@@ -203,13 +222,13 @@ export class MovieList extends React.PureComponent<
 
   private getRenderFakeSpace = () => {
     const frameList = this.props.movie.frameList;
-    const startIndex = this.state.renderSliceStart;
-    const endIndex = this.state.renderSliceEnd;
+    const startIndex = this.state.renderStart;
+    const endIndex = this.state.renderEnd;
 
     return {
-      fakeSpaceAbove: frameList.length <= 0 ? 0 : frameList[startIndex].rect.top - frameList[0].rect.top,
+      fakeSpaceAbove: frameList.length === 0 ? 0 : frameList[startIndex].rect.top - frameList[0].rect.top,
       fakeSpaceBelow:
-        endIndex >= frameList.length ? 0 : frameList[frameList.length - 1].rect.bottom - frameList[endIndex].rect.top
+        frameList.length === 0 ? 0 : frameList[frameList.length - 1].rect.bottom - frameList[endIndex].rect.bottom
     };
   };
 }

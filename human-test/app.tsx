@@ -45,7 +45,7 @@ class App extends React.Component<
         <div className="head">Site Head</div>
 
         {!this.isUseWrapperDivAsScreen && (
-          <MovieList movie={this.state.movie} bufferHeightRatio={0.5}>
+          <MovieList movie={this.state.movie} bufferHeightRatio={0}>
             {(item: any, index: number) => <Showcase item={item} index={index} />}
           </MovieList>
         )}
@@ -53,7 +53,7 @@ class App extends React.Component<
         {this.isUseWrapperDivAsScreen && (
           <MovieList
             movie={this.state.movie}
-            bufferHeightRatio={0.5}
+            bufferHeightRatio={0}
             useWrapperDivAsScreen={{
               className: "list"
             }}
@@ -61,6 +61,13 @@ class App extends React.Component<
             {(item: any, index: number) => <Showcase item={item} index={index} />}
           </MovieList>
         )}
+
+        <div
+          style={{
+            background: "black",
+            height: "100rem"
+          }}
+        />
       </MainWrapper>
     );
   }
@@ -107,7 +114,7 @@ const MainWrapper = styled.div`
   }
 
   .list {
-    margin: 0 auto;
+    margin: 5rem auto;
     overflow-x: hidden;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
