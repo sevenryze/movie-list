@@ -1,7 +1,10 @@
 import React from "react";
 
 export class Showcase extends React.Component<{
-  item: any;
+  item: {
+    id: string;
+    height: number;
+  };
   index: number;
 }> {
   public render() {

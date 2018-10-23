@@ -1,4 +1,4 @@
-import { IMovie, IPoint, IRectangle, IScreen } from "./interface";
+import { IMovie, IRectangle, IScreen } from "./interface";
 import { createRectangle } from "./rectangle";
 
 /**
@@ -35,13 +35,13 @@ export function project(options: { screen: IScreen; movie: IMovie; bufferRatio: 
     startIndex = frameList.length - 1;
   }
 
-  let endIndex = frameList.findIndex(frame => renderRectBottom < frame.rect.bottom);
+  let endIndex = frameList.findIndex(frame => renderRectBottom < frame.rect.top);
   if (endIndex < 0) {
-    endIndex = frameList.length - 1;
+    endIndex = frameList.length;
   }
 
   return {
-    renderEnd: endIndex,
-    renderStart: startIndex
+    renderSliceEnd: endIndex,
+    renderSliceStart: startIndex
   };
 }

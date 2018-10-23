@@ -15,6 +15,7 @@ export interface IRectangle {
 export interface IFrame {
   rect: IRectangle;
   content: object;
+  id: string;
 }
 
 export interface IMovie {
@@ -26,3 +27,9 @@ export interface IScreen {
   rectRelativeToWorld: IRectangle;
   rectRelativeToMovie: IRectangle;
 }
+
+export interface IListItem {
+  id: string;
+}
+
+export type IRenderedFrameHeight = Record<string, number>;

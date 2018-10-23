@@ -2,9 +2,9 @@ import throttle from "lodash.throttle";
 import React from "react";
 import { requestAnimationFrame } from "./helper/rAF";
 import { createScheduler } from "./helper/schedule";
-import { IMovie, IScreen } from "./interface";
+import { IListItem, IMovie, IRenderedFrameHeight, IScreen } from "./interface";
 import { addResizeListener, addScrollListener } from "./listener";
-import { appendFrames, createMovie, prefixFrames, updateFrameHeights } from "./movie";
+import { createMovie } from "./movie";
 import { createRectangle } from "./rectangle";
 import { createScreenRelativeToMovie, project } from "./screen";
 
@@ -20,8 +20,10 @@ export class MovieList extends React.PureComponent<
     // How many buffer size should we use, calculating with - Buffer height / Screen height
     bufferHeightRatio: number;
 
-    // The movie object, used for cache
-    movie: IMovie;
+    // The list item data
+    data: IListItem[];
+
+    assumedHeight: number;
 
     // Indicate whether using the wrapper div as movie screen
     useWrapperDivAsScreen?: {
@@ -34,38 +36,54 @@ export class MovieList extends React.PureComponent<
     /**
      * The item renderer. You could also use the children as item renderer.
      */
-    itemRenderer?: (item: any, index: number) => void;
+    itemRenderer?: (item: IListItem, index: number) => void;
   },
   {
-    renderStart: number;
-    renderEnd: number;
+    renderSliceStart: number;
+    renderSliceEnd: number;
+    fakePaddingTop: number;
+    fakePaddingBottom: number;
+    fakePaddingLeft: number;
+    fakePaddingRight: number;
   }
 > {
-  public static appendFrames = appendFrames;
-  public static prefixFrames = prefixFrames;
-  public static createMovie = createMovie;
+  public static storeMovie = () => {
+    const a = 1;
+  };
+
+  public static restoreMovie = () => {
+    const a = 1;
+  };
 
   public state = {
-    renderEnd: 0,
-    renderStart: 0
+    fakePaddingBottom: 0,
+    fakePaddingLeft: 0,
+    fakePaddingRight: 0,
+    fakePaddingTop: 0,
+    renderSliceEnd: 0, // Not include!
+    renderSliceStart: 0
   };
+
+  // Record the rendered item's heights.
+  // Very important field!
+  private renderedFrameHeights: IRenderedFrameHeight = {};
 
   private wrapperDivRef = React.createRef<HTMLDivElement>();
   private movieDivRef = React.createRef<HTMLDivElement>();
 
-  private renderedFrameHeights: Record<number, number> = {};
-
   // This screen is related to movie. NOT web client system!
   private screen!: IScreen;
 
-  private isUnmounted!: boolean;
+  private isMount!: boolean;
   private unlistenScroll!: () => void;
   private unlistenResize!: () => void;
-  private currentMovie: IMovie = this.props.movie;
-  private prevMovie: IMovie = this.props.movie;
+  private movie: IMovie = createMovie(this.props.assumedHeight, []);
+  private prevData!: IListItem[];
   private throttleDuration = 200;
 
   public componentDidMount() {
+    this.isMount = true;
+
     const target = this.props.useWrapperDivAsScreen ? this.wrapperDivRef.current : window;
 
     this.unlistenScroll = addScrollListener(
@@ -88,6 +106,8 @@ export class MovieList extends React.PureComponent<
       ),
       target!
     );
+
+    this.runProjection();
   }
 
   public componentDidUpdate() {
@@ -95,7 +115,7 @@ export class MovieList extends React.PureComponent<
   }
 
   public componentWillUnmount() {
-    this.isUnmounted = true;
+    this.isMount = true;
 
     // 取消事件侦听
     if (this.unlistenScroll) {
@@ -107,10 +127,7 @@ export class MovieList extends React.PureComponent<
   }
 
   public render() {
-    // Clear the temp cache
-    this.renderedFrameHeights = {};
-
-    const { fakeSpaceAbove, fakeSpaceBelow } = this.getRenderFakeSpace();
+    const { fakePaddingTop, fakePaddingBottom } = this.state;
 
     return (
       <div
@@ -122,52 +139,53 @@ export class MovieList extends React.PureComponent<
           style={{
             display: "flex",
             flexDirection: "column",
-            paddingBottom: fakeSpaceBelow,
-            paddingTop: fakeSpaceAbove
+            paddingBottom: fakePaddingBottom,
+            paddingTop: fakePaddingTop
           }}
         >
-          {this.props.movie.frameList
-            .slice(
-              this.state.renderStart,
-              // Array.slice(start, end), `end` NOT included
-              this.state.renderEnd + 1
-            )
-            .map((item, index) => {
-              // The actual index of the rendered frame in the movie frame list.
-              const actualIndex = index + this.state.renderStart;
+          {this.movie.frameList.slice(this.state.renderSliceStart, this.state.renderSliceEnd).map((item, index) => {
+            // The actual index of the rendered frame in the movie frame list.
+            const actualIndex = index + this.state.renderSliceStart;
 
-              return (
-                <div
-                  key={actualIndex}
-                  data-aindex={actualIndex}
-                  ref={(ref: HTMLDivElement) => {
-                    if (ref) {
-                      // TODO: 搞清楚使用getBoundingClientRect()到底会不会影响性能。
-                      const height = ref.getBoundingClientRect().height;
-                      // const height = ref.offsetHeight;
+            return (
+              <div
+                key={item.id}
+                ref={(ref: HTMLDivElement) => {
+                  if (ref) {
+                    // TODO: 搞清楚使用getBoundingClientRect()到底会不会影响性能。
+                    // TODO: const height = ref.offsetHeight;
+                    const height = ref.getBoundingClientRect().height;
 
-                      this.renderedFrameHeights[actualIndex] = height;
-                    }
-                  }}
-                >
-                  {(this.props as any).itemRenderer
-                    ? (this.props as any).itemRenderer(item.content, actualIndex)
-                    : (this.props as any).children(item.content, actualIndex)}
-                </div>
-              );
-            })}
+                    this.renderedFrameHeights[item.id] = height;
+                  }
+                }}
+              >
+                {(this.props as any).itemRenderer
+                  ? (this.props as any).itemRenderer(item.content, actualIndex)
+                  : (this.props as any).children(item.content, actualIndex)}
+              </div>
+            );
+          })}
         </div>
       </div>
     );
   }
 
-  // Use this scheduler to schedule projection.
+  /**
+   * Use this scheduler to schedule projection.
+   *
+   * It's main purpose is to calculate render slice and padding values
+   * of the NEXT render step.
+   */
   private runProjection = createScheduler(() => {
-    const { movie, bufferHeightRatio } = this.props;
+    const { bufferHeightRatio, data } = this.props;
 
-    if (this.isUnmounted || 0 === movie.frameList.length) {
+    if (!this.isMount || 0 === data.length) {
       return;
     }
+
+    // The movie object used by next step.
+    this.movie = createMovie(this.props.assumedHeight, this.props.data, this.renderedFrameHeights);
 
     const wrapperBoundingRect = this.wrapperDivRef.current!.getBoundingClientRect();
     const movieBoundingRect = this.movieDivRef.current!.getBoundingClientRect();
@@ -190,15 +208,22 @@ export class MovieList extends React.PureComponent<
 
     this.screen = createScreenRelativeToMovie(screenWorldRect, movieWorldRect);
 
-    const result = project({
+    const { renderSliceEnd, renderSliceStart } = project({
       bufferRatio: bufferHeightRatio,
-      movie,
+      movie: this.movie,
       screen: this.screen
     });
 
+    const frameList = this.movie.frameList;
+
     this.setState({
-      renderEnd: result.renderEnd,
-      renderStart: result.renderStart
+      fakePaddingBottom:
+        frameList.length === 0
+          ? 0
+          : frameList[frameList.length - 1].rect.bottom - frameList[renderSliceEnd - 1].rect.bottom,
+      fakePaddingTop: frameList.length === 0 ? 0 : frameList[renderSliceStart].rect.top - frameList[0].rect.top,
+      renderSliceEnd,
+      renderSliceStart
     });
   }, requestAnimationFrame);
 
@@ -207,28 +232,23 @@ export class MovieList extends React.PureComponent<
       return;
     }
 
-    let isMovieFrameListChange = false;
-    if (this.prevMovie !== this.props.movie) {
-      isMovieFrameListChange = true;
+    if (this.prevData !== this.props.data) {
+      this.prevData = this.props.data;
+      this.runProjection();
+      return;
     }
-    this.prevMovie = this.props.movie;
 
-    const { heightError } = updateFrameHeights(this.props.movie, this.renderedFrameHeights);
+    // Caculate the height error.
+    const heightError = this.movie.frameList
+      .slice(this.state.renderSliceStart, this.state.renderSliceEnd + 1)
+      .reduce((accError, frame) => {
+        const currentError = this.renderedFrameHeights[frame.id] - frame.rect.height;
 
-    if (heightError !== 0 || isMovieFrameListChange) {
+        return accError + currentError;
+      }, 0);
+
+    if (heightError !== 0) {
       this.runProjection();
     }
-  };
-
-  private getRenderFakeSpace = () => {
-    const frameList = this.props.movie.frameList;
-    const startIndex = this.state.renderStart;
-    const endIndex = this.state.renderEnd;
-
-    return {
-      fakeSpaceAbove: frameList.length === 0 ? 0 : frameList[startIndex].rect.top - frameList[0].rect.top,
-      fakeSpaceBelow:
-        frameList.length === 0 ? 0 : frameList[frameList.length - 1].rect.bottom - frameList[endIndex].rect.bottom
-    };
   };
 }

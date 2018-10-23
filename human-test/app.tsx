@@ -1,35 +1,34 @@
 import React from "react";
 import { hot } from "react-hot-loader";
 import styled from "styled-components";
-import { IMovie, MovieList } from "../lib";
+import { MovieList } from "../lib";
+import { getRandomString } from "./random-id";
 import { Showcase } from "./showcase";
 
 function getData(num: number, from = 0) {
   return new Array(num).fill(1).map((_, index) => ({
-    content: {
-      height: Math.ceil(Math.random() * 1000) + 50,
-      id: from + index
-    },
-    height: Math.ceil(Math.random() * 1000) + 50
+    height: Math.ceil(Math.random() * 1000) + 50,
+    id: getRandomString(),
+    name: "test item"
   }));
 }
 
-class App extends React.Component<
+class App extends React.PureComponent<
   {},
   {
-    movie: IMovie;
+    data: any[];
     isFetchData: boolean;
   }
 > {
   private isUseWrapperDivAsScreen = false;
 
   public state = {
-    isFetchData: false,
-    movie: MovieList.createMovie(400)
+    data: getData(10, 0),
+    isFetchData: false
   };
 
   public componentDidMount() {
-    this.addAfter();
+    // this.addAfter();
   }
 
   public render() {
@@ -45,14 +44,15 @@ class App extends React.Component<
         <div className="head">Site Head</div>
 
         {!this.isUseWrapperDivAsScreen && (
-          <MovieList movie={this.state.movie} bufferHeightRatio={0}>
+          <MovieList data={this.state.data} assumedHeight={400} bufferHeightRatio={0}>
             {(item: any, index: number) => <Showcase item={item} index={index} />}
           </MovieList>
         )}
 
         {this.isUseWrapperDivAsScreen && (
           <MovieList
-            movie={this.state.movie}
+            data={this.state.data}
+            assumedHeight={400}
             bufferHeightRatio={0}
             useWrapperDivAsScreen={{
               className: "list"
@@ -62,12 +62,7 @@ class App extends React.Component<
           </MovieList>
         )}
 
-        <div
-          style={{
-            background: "black",
-            height: "100rem"
-          }}
-        />
+        <div className="footer" />
       </MainWrapper>
     );
   }
@@ -76,14 +71,14 @@ class App extends React.Component<
     const newData = getData(10, 200);
 
     this.setState({
-      movie: MovieList.prefixFrames(this.state.movie, newData)
+      data: newData.concat(this.state.data)
     });
   };
 
   private addAfter = async () => {
-    this.setState({
+    /*  this.setState({
       isFetchData: true
-    });
+    }); */
 
     await new Promise(resolve => {
       setTimeout(() => {
@@ -94,8 +89,8 @@ class App extends React.Component<
     const newData = getData(10, 300);
 
     this.setState({
-      isFetchData: false,
-      movie: MovieList.appendFrames(this.state.movie, newData)
+      data: this.state.data.concat(newData),
+      isFetchData: false
     });
   };
 }
@@ -110,7 +105,17 @@ const MainWrapper = styled.div`
 
     color: red;
     background-color: #999;
-    height: 100px;
+    height: 100rem;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: red;
+    background-color: #999;
+    height: 100rem;
   }
 
   .list {
