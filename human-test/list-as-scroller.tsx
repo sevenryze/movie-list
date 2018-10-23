@@ -40,8 +40,14 @@ class App extends React.Component<
 
         <div className="App__head">Site Head</div>
 
-        <MovieList movie={this.state.movie} bufferHeightRatio={0.5}>
-          {(item, index) => <Showcase item={item} index={index} />}
+        <MovieList
+          movie={this.state.movie}
+          bufferHeightRatio={0.5}
+          useDivAsScreen={{
+            className: "list"
+          }}
+        >
+          {(item: any, index: number) => <Showcase item={item} index={index} />}
         </MovieList>
       </div>
     );
