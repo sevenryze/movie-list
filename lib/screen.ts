@@ -1,15 +1,5 @@
-import { IRectangle, createRectangle } from "./rectangle";
-import { IMovie } from "./movie";
-
-export interface IPoint {
-  top: number;
-  left: number;
-}
-
-export interface IScreen {
-  rectRelativeToWorld: IRectangle;
-  rectRelativeToMovie: IRectangle;
-}
+import { IMovie, IPoint, IScreen } from "./interface";
+import { createRectangle } from "./rectangle";
 
 /**
  * 相对于影片的原点，计算screen的位置。
@@ -30,21 +20,17 @@ export function createScreenRelativeToMovie(
   movieOrigin: IPoint
 ): IScreen {
   return {
-    rectRelativeToWorld: createRectangle(worldRect),
     rectRelativeToMovie: createRectangle({
-      top: worldRect.top - movieOrigin.top,
-      left: 0,
       height: worldRect.height,
+      left: 0,
+      top: worldRect.top - movieOrigin.top,
       width: worldRect.width
-    })
+    }),
+    rectRelativeToWorld: createRectangle(worldRect)
   };
 }
 
-export function project(options: {
-  screen: IScreen;
-  movie: IMovie;
-  bufferRatio: number;
-}) {
+export function project(options: { screen: IScreen; movie: IMovie; bufferRatio: number }) {
   const { movie, bufferRatio, screen } = options;
   const frameList = movie.frameList;
 
@@ -54,22 +40,18 @@ export function project(options: {
   const renderRectTop = screen.rectRelativeToMovie.top - bufferHeight;
   const renderRectBottom = screen.rectRelativeToMovie.bottom + bufferHeight;
 
-  let startIndex = frameList.findIndex(
-    frame => frame.rect.bottom > renderRectTop
-  );
+  let startIndex = frameList.findIndex(frame => frame.rect.bottom > renderRectTop);
   if (startIndex < 0) {
     startIndex = frameList.length - 1;
   }
 
-  let endIndex = frameList.findIndex(
-    frame => frame.rect.top >= renderRectBottom
-  );
+  let endIndex = frameList.findIndex(frame => frame.rect.top >= renderRectBottom);
   if (endIndex < 0) {
     endIndex = frameList.length;
   }
 
   return {
-    sliceStart: startIndex,
-    sliceEnd: endIndex
+    sliceEnd: endIndex,
+    sliceStart: startIndex
   };
 }

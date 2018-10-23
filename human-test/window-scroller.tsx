@@ -1,9 +1,9 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import App2 from "./app2";
-import { injectGlobal } from "styled-components";
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./app";
+import { createGlobalStyle } from "styled-components";
 
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
@@ -13,14 +13,6 @@ injectGlobal`
   .App__head {
     height: 200px;
     background-color: #999;
-  }
-
-  .list {
-    margin: 0 auto;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    height: calc(100vh - 300px);
   }
 
   .before-button {   
@@ -42,4 +34,10 @@ injectGlobal`
   }
 `;
 
-ReactDOM.render(<App2 />, document.getElementById("root") as HTMLElement);
+ReactDOM.render(
+  <>
+    <GlobalStyle />
+    <App />
+  </>,
+  document.getElementById("root") as HTMLElement
+);

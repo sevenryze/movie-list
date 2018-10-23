@@ -7,6 +7,6 @@ export const requestAnimationFrame = (window.requestAnimationFrame =
   window.oRequestAnimationFrame ||
   // @ts-ignore
   window.msRequestAnimationFrame ||
-  function(cb) {
+  (cb => {
     window.setTimeout(cb, 1000 / 60);
-  });
+  }));

@@ -1,11 +1,11 @@
-import * as React from "react";
+import React from "react";
 import {
   MovieList,
   IMovie,
   createMovie,
   prefixFrames,
   appendFrames
-} from "./component";
+} from "../lib";
 
 function getData(num, from = 0) {
   return new Array(num).fill(1).map((_, index) => ({

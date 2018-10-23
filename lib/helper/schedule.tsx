@@ -5,7 +5,9 @@
  * @param scheduler 用户提供的调度器
  * @returns 调用它可以执行一次任务调度
  */
-export function createScheduler(task: Function, scheduler: Function) {
+// tslint:disable-next-line:ban-types
+export function createScheduler(task: () => void, scheduler: Function) {
+  // Prevent from multi-schedule
   let isRunning = false;
 
   const update = () => {

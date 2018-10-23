@@ -1,15 +1,24 @@
 {
   "compilerOptions": {
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
-    "target": "es2015",
+    "target": "es2016",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
     "removeComments": true,
-    "noImplicitAny": false,
+    "strict": true,
+    "alwaysStrict": true,
     "jsx": "react",
-    "outDir": "dist"
+    "outDir": "dist",
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin"
+      }
+    ]
   },
-  "include": ["src"]
+
+  "include": ["lib", "typings"]
 }

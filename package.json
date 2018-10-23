@@ -1,40 +1,41 @@
 {
   "name": "@sevenryze/movie-list",
   "version": "1.1.2",
-  "private": false,
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "files": [
-    "dist/component"
+    "dist/",
+    "typings/"
   ],
-  "main": "dist/component/index.js",
-  "types": "dist/component/index.d.ts",
+  "scripts": {
+    "start": "towerflow start",
+    "production": "towerflow production",
+    "test": "towerflow test --env=jsdom",
+    "generate-config": "towerflow assistant --generate-config",
+    "remove-config": "towerflow assistant --remove-config"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sevenryze/movie-list.git"
+  },
+  "towerflow": {
+    "type": "web-lib"
+  },
   "dependencies": {
+    "@types/lodash.throttle": "^4.1.4",
     "lodash.throttle": "^4.1.1"
   },
   "devDependencies": {
-    "@types/react": "^16.4.7",
-    "@types/react-dom": "^16.0.6",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "file-loader": "^1.1.11",
-    "html-webpack-plugin": "^3.2.0",
-    "prettier": "^1.14.0",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-hot-loader": "^4.3.4",
-    "styled-components": "^3.4.0",
-    "ts-loader": "^4.4.2",
-    "typescript": "^3.0.1",
-    "webpack": "^4.16.3",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
+    "@types/react": "^16.4.18",
+    "@types/react-dom": "^16.0.9",
+    "@types/styled-components": "^4.0.1",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "styled-components": "^4.0.2",
+    "towerflow": "^1.0.0"
   },
   "peerDependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2"
-  },
-  "scripts": {
-    "dev": "webpack-dev-server --config webpack-config.js --hot",
-    "build": "tsc --project .",
-    "commit-to-npm": "npm run build && npm publish --access=public"
   }
 }

@@ -15,18 +15,13 @@ export function mapOldFrameIndexIntoNewFilm(options: {
   newFrameStart: number;
   newFrameEnd: number;
 }) {
-  let {
-    newFrameEnd,
-    newFrameStart,
-    currentFrameEnd,
-    currentFrameStart
-  } = options;
+  const { newFrameEnd, newFrameStart, currentFrameEnd, currentFrameStart } = options;
 
   const currentFrameLength = currentFrameEnd - currentFrameStart;
 
-  let slice = {
-    start: 0,
-    end: 0
+  const slice = {
+    end: 0,
+    start: 0
   };
 
   // 在old film之前添加frames

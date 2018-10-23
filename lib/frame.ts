@@ -1,9 +1,5 @@
-import { createRectangle, IRectangle } from "./rectangle";
-
-export interface IFrame {
-  rect: IRectangle;
-  content: object;
-}
+import { IFrame } from "./interface";
+import { createRectangle } from "./rectangle";
 
 export function createFrame(options: {
   content: object;
