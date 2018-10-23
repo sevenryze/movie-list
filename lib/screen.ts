@@ -1,32 +1,21 @@
-import { IMovie, IPoint, IScreen } from "./interface";
+import { IMovie, IPoint, IRectangle, IScreen } from "./interface";
 import { createRectangle } from "./rectangle";
 
 /**
- * 相对于影片的原点，计算screen的位置。
- * 即：获得当前屏幕投影到了影片的哪个位置。
+ * Get screen object, related to movie origin.
  *
- * 世界坐标系为client坐标系
- *
- * @param worldRect 相对于世界坐标系的屏幕对象
- * @param movieOrigin 相对于世界坐标系的原点
+ * @param screenWorldRect Screen coordinates related to world
+ * @param movieWorldRect Movie coordinates related to world
  */
-export function createScreenRelativeToMovie(
-  worldRect: {
-    top: number;
-    left: number;
-    height: number;
-    width: number;
-  },
-  movieOrigin: IPoint
-): IScreen {
+export function createScreenRelativeToMovie(screenWorldRect: IRectangle, movieWorldRect: IRectangle): IScreen {
   return {
     rectRelativeToMovie: createRectangle({
-      height: worldRect.height,
-      left: 0,
-      top: worldRect.top - movieOrigin.top,
-      width: worldRect.width
+      height: screenWorldRect.height,
+      left: screenWorldRect.left - movieWorldRect.left,
+      top: screenWorldRect.top - movieWorldRect.top,
+      width: screenWorldRect.width
     }),
-    rectRelativeToWorld: createRectangle(worldRect)
+    rectRelativeToWorld: screenWorldRect
   };
 }
 
@@ -36,7 +25,8 @@ export function project(options: { screen: IScreen; movie: IMovie; bufferRatio: 
 
   const bufferHeight = screen.rectRelativeToMovie.height * bufferRatio;
 
-  // 渲染rect范围
+  // The range that is to rendering.
+  // TODO: Support horizonzal scroll and render.
   const renderRectTop = screen.rectRelativeToMovie.top - bufferHeight;
   const renderRectBottom = screen.rectRelativeToMovie.bottom + bufferHeight;
 
@@ -45,8 +35,9 @@ export function project(options: { screen: IScreen; movie: IMovie; bufferRatio: 
     startIndex = frameList.length - 1;
   }
 
-  let endIndex = frameList.findIndex(frame => frame.rect.top >= renderRectBottom);
+  let endIndex = frameList.findIndex(frame => frame.rect.bottom >= renderRectBottom);
   if (endIndex < 0) {
+    // Array.slice(start, end), `end` NOT included
     endIndex = frameList.length;
   }
 

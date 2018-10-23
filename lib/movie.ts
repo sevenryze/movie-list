@@ -12,7 +12,7 @@ export function createMovie(assumedHeight: number): IMovie {
 /**
  * 更新movie对象中帧的尺寸
  *
- * TODO: 这个函数会改变传入的movie的属性，也许会有一个没有side-effect的设计？
+ * // TODO: 这个函数会改变传入的movie的属性，也许有一个没有side-effect的设计？
  *
  * @param movie 影片对象
  * @param renderedHeights 实际渲染的高度map
@@ -90,27 +90,33 @@ class MovieError extends Error {
 function addFramesToMoive(type: "prefix" | "append", oldMovie: IMovie, data: any[]) {
   const newMovie = createMovie(oldMovie.assumedHeight);
 
-  const newFrames = data.reduce((frames: IFrame[], currentItem) => {
-    const frame = createFrame({
-      content: currentItem,
-      rect: {
-        height: oldMovie.assumedHeight,
-        left: 0,
-        top: frames.length === 0 ? 0 : frames[frames.length - 1].rect.bottom,
-        width: 0
+  const newFrames = data.reduce((accframes: IFrame[], currentItem) => {
+    function getTop() {
+      if (accframes.length === 0) {
+        return type === "prefix" || oldMovie.frameList.length === 0
+          ? 0
+          : oldMovie.frameList[oldMovie.frameList.length - 1].rect.bottom;
+      } else {
+        return accframes[accframes.length - 1].rect.bottom;
       }
-    });
+    }
 
-    frames.push(frame);
+    accframes.push(
+      createFrame({
+        content: currentItem,
+        rect: {
+          height: oldMovie.assumedHeight,
+          left: 0,
+          top: getTop(),
+          width: 0
+        }
+      })
+    );
 
-    return frames;
-  }, type === "prefix" ? [] : oldMovie.frameList);
+    return accframes;
+  }, []);
 
-  if (type === "prefix") {
-    newMovie.frameList = newFrames.concat(oldMovie.frameList);
-  } else {
-    newMovie.frameList = oldMovie.frameList.concat(newFrames);
-  }
+  newMovie.frameList = type === "prefix" ? newFrames.concat(oldMovie.frameList) : oldMovie.frameList.concat(newFrames);
 
   return newMovie;
 }

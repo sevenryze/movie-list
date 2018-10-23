@@ -5,7 +5,15 @@ import { createScheduler } from "./helper/schedule";
 import { IMovie, IScreen } from "./interface";
 import { addResizeListener, addScrollListener } from "./listener";
 import { appendFrames, createMovie, prefixFrames, updateFrameHeights } from "./movie";
+import { createRectangle } from "./rectangle";
 import { createScreenRelativeToMovie, project } from "./screen";
+
+/**
+ * If not point out specifically, the coordinates of rectangles all are
+ * related to browser's client system, A.K.A relating to left-top point of the tab view.
+ *
+ * And for simplicy purpose, we use this coordinate system as WORLD system.
+ */
 
 export class MovieList extends React.PureComponent<
   {
@@ -15,13 +23,18 @@ export class MovieList extends React.PureComponent<
     // The movie object, used for cache
     movie: IMovie;
 
-    // Indicate whether using a div as movie screen
-    useDivAsScreen?: {
+    // Indicate whether using the wrapper div as movie screen
+    useWrapperDivAsScreen?: {
       /**
-       * 屏幕div的CSS类
+       * Assign the class name to the wrapper div
        */
       className: string;
     };
+
+    /**
+     * The item renderer. You could also use the children as item renderer.
+     */
+    itemRenderer?: (item: any, index: number) => void;
   },
   {
     renderSliceStart: number;
@@ -37,41 +50,25 @@ export class MovieList extends React.PureComponent<
     renderSliceStart: 0
   };
 
-  // 放映屏幕的DOM div ref
-  private screenDivRef = React.createRef<HTMLDivElement>();
-  // 长列表的DOM div ref
-  private movieListDivRef = React.createRef<HTMLDivElement>();
+  private wrapperDivRef = React.createRef<HTMLDivElement>();
+  private movieDivRef = React.createRef<HTMLDivElement>();
+
   private renderedFrameHeights: Record<number, number> = {};
+
+  // This screen is related to movie. NOT web client system!
   private screen!: IScreen;
+
   private isUnmounted!: boolean;
   private unlistenScroll!: () => void;
   private unlistenResize!: () => void;
   private prevMovie!: IMovie;
+  private throttleDuration = 200;
 
-  /**
-   * 1. 注册scroll和resize事件的监听函数
-   * 2. 调度第一次投影操作
-   */
   public componentDidMount() {
-    const throttleDuration = 200;
+    const target = this.props.useWrapperDivAsScreen ? this.wrapperDivRef.current : window;
 
-    const target = this.props.useDivAsScreen ? this.screenDivRef.current : window;
-
-    this.unlistenScroll = addScrollListener(
-      throttle(this.scheduleProjection, throttleDuration, {
-        leading: false,
-        trailing: true
-      }),
-      target!
-    );
-
-    this.unlistenResize = addResizeListener(
-      throttle(this.scheduleProjection, throttleDuration, {
-        leading: false,
-        trailing: true
-      }),
-      target!
-    );
+    this.unlistenScroll = addScrollListener(this.thresholdRunProjection, target!);
+    this.unlistenResize = addResizeListener(this.thresholdRunProjection, target!);
   }
 
   public componentDidUpdate() {
@@ -97,10 +94,14 @@ export class MovieList extends React.PureComponent<
     const { fakeSpaceAbove, fakeSpaceBelow } = this.getRenderFakeSpace();
 
     return (
-      <div className={this.props.useDivAsScreen && this.props.useDivAsScreen.className} ref={this.screenDivRef}>
+      <div
+        className={this.props.useWrapperDivAsScreen && this.props.useWrapperDivAsScreen.className}
+        ref={this.wrapperDivRef}
+      >
         <div
-          ref={this.movieListDivRef}
+          ref={this.movieDivRef}
           style={{
+            display: "flex",
             flexDirection: "column",
             paddingBottom: fakeSpaceBelow,
             paddingTop: fakeSpaceAbove
@@ -115,18 +116,18 @@ export class MovieList extends React.PureComponent<
               return (
                 <div
                   key={actualIndex}
+                  data-aindex={actualIndex}
                   ref={(ref: HTMLDivElement) => {
                     if (ref) {
                       // TODO: 搞清楚使用getBoundingClientRect()到底会不会影响性能。
                       const height = ref.getBoundingClientRect().height;
-                      // let height = ref.offsetHeight;
+                      // const height = ref.offsetHeight;
 
                       this.renderedFrameHeights[actualIndex] = height;
                     }
                   }}
                 >
-                  {// TODO: 这里是一个ts编译器的bug。当同时使用intersection和union时，会无法识别props的类型
-                  (this.props as any).itemRenderer
+                  {(this.props as any).itemRenderer
                     ? (this.props as any).itemRenderer(item.content, actualIndex)
                     : (this.props as any).children(item.content, actualIndex)}
                 </div>
@@ -137,26 +138,34 @@ export class MovieList extends React.PureComponent<
     );
   }
 
-  // 创建投影计算调度器
-  private scheduleProjection = createScheduler(() => {
+  // Use this scheduler to schedule projection.
+  private runProjection = createScheduler(() => {
     const { movie, bufferHeightRatio } = this.props;
 
     if (this.isUnmounted || 0 === movie.frameList.length) {
       return;
     }
 
-    this.screen = createScreenRelativeToMovie(
-      {
-        height: this.getScreenHeight(),
-        left: 0,
-        top: this.props.useDivAsScreen ? this.screenDivRef.current!.getBoundingClientRect().top : 0,
-        width: 0
-      },
-      {
-        left: 0,
-        top: this.movieListDivRef.current!.getBoundingClientRect().top
-      }
-    );
+    const wrapperBoundingRect = this.wrapperDivRef.current!.getBoundingClientRect();
+    const movieBoundingRect = this.movieDivRef.current!.getBoundingClientRect();
+    const isUseDiv = this.props.useWrapperDivAsScreen;
+
+    // Properties `clientWidth/clientHeight` only account for the visible part of the element.
+    const screenWorldRect = createRectangle({
+      height: isUseDiv ? wrapperBoundingRect.height : window.document.documentElement!.clientHeight,
+      left: isUseDiv ? wrapperBoundingRect.left : 0,
+      top: isUseDiv ? wrapperBoundingRect.top : 0,
+      width: isUseDiv ? wrapperBoundingRect.width : window.document.documentElement!.clientWidth
+    });
+
+    const movieWorldRect = createRectangle({
+      height: movieBoundingRect.height,
+      left: movieBoundingRect.left,
+      top: movieBoundingRect.top,
+      width: movieBoundingRect.width
+    });
+
+    this.screen = createScreenRelativeToMovie(screenWorldRect, movieWorldRect);
 
     const result = project({
       bufferRatio: bufferHeightRatio,
@@ -169,12 +178,13 @@ export class MovieList extends React.PureComponent<
       renderSliceStart: result.sliceStart
     });
   }, requestAnimationFrame);
+  private thresholdRunProjection = throttle(this.runProjection, this.throttleDuration, {
+    leading: false,
+    trailing: true
+  });
 
-  /**
-   * 矫正当前的投影
-   */
   private correctProjection = () => {
-    if (!this.screenDivRef.current) {
+    if (!this.wrapperDivRef.current) {
       return;
     }
 
@@ -187,7 +197,7 @@ export class MovieList extends React.PureComponent<
     const heightError = updateFrameHeights(this.props.movie, this.renderedFrameHeights);
 
     if (heightError !== 0 || isMovieFrameListChange) {
-      this.scheduleProjection();
+      this.runProjection();
     }
   };
 
@@ -201,19 +211,5 @@ export class MovieList extends React.PureComponent<
       fakeSpaceBelow:
         endIndex >= frameList.length ? 0 : frameList[frameList.length - 1].rect.bottom - frameList[endIndex].rect.top
     };
-  };
-
-  /**
-   * 获取用户观看屏幕的高度
-   *
-   * Properties `clientWidth/clientHeight` only account for the visible part of the element.
-   *
-   * @return 返回屏幕的高度
-   */
-  private getScreenHeight = (): number => {
-    // clientHeight仅仅包括可视范围的高，不包括已经被scroll到上面或者下面的高
-    return this.props.useDivAsScreen
-      ? this.screenDivRef.current!.clientHeight
-      : window.document.documentElement!.clientHeight;
   };
 }
