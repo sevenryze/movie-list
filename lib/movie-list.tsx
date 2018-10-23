@@ -1,9 +1,9 @@
 import throttle from "lodash.throttle";
 import React from "react";
+import { addResizeListener, addScrollListener } from "./helper/listener";
 import { requestAnimationFrame } from "./helper/rAF";
 import { createScheduler } from "./helper/schedule";
 import { IListItem, IMovie, IRenderedFrameHeight, IScreen } from "./interface";
-import { addResizeListener, addScrollListener } from "./listener";
 import { createMovie } from "./movie";
 import { createRectangle } from "./rectangle";
 import { createScreenRelativeToMovie, project } from "./screen";
@@ -47,12 +47,12 @@ export class MovieList extends React.PureComponent<
     fakePaddingRight: number;
   }
 > {
-  public static storeMovie = () => {
-    const a = 1;
+  public storeMovie = () => {
+    return this.movie;
   };
 
-  public static restoreMovie = () => {
-    const a = 1;
+  public restoreMovie = (movie: IMovie) => {
+    this.movie = movie;
   };
 
   public state = {
@@ -117,7 +117,6 @@ export class MovieList extends React.PureComponent<
   public componentWillUnmount() {
     this.isMount = true;
 
-    // 取消事件侦听
     if (this.unlistenScroll) {
       this.unlistenScroll();
     }
@@ -152,7 +151,7 @@ export class MovieList extends React.PureComponent<
                 key={item.id}
                 ref={(ref: HTMLDivElement) => {
                   if (ref) {
-                    // TODO: 搞清楚使用getBoundingClientRect()到底会不会影响性能。
+                    // TODO: Make clear on that how getBoundingClientRect() will affect the performance?
                     // TODO: const height = ref.offsetHeight;
                     const height = ref.getBoundingClientRect().height;
 

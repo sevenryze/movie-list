@@ -1,6 +1,6 @@
 {
   "name": "@sevenryze/movie-list",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "files": [

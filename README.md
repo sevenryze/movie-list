@@ -1,243 +1,116 @@
-# 目录
+# Table of Content
 
-# 使用方法
+<!-- prettier-ignore-start -->
 
-本组件对外暴露两个对象：`Movie`（影片）和 `MovieList`（基于影片技术的 `list`）。
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
-在使用`MovieList`之前，我们需要通过调用`Movie`中的方法，初始化一部影片。
+<!-- code_chunk_output -->
 
-而`MovieList`就像我们平常使用的列表组件一样，只不过额外增加了 virtual window 的功能。
+* [Table of Content](#table-of-content)
+* [Install](#install)
+* [Usage](#usage)
+	* [Use the `window` object as the global scroller](#use-the-window-object-as-the-global-scroller)
+	* [Use the wrapper div element as local scroller](#use-the-wrapper-div-element-as-local-scroller)
+* [API](#api)
+	* [`MovieList`](#movielist)
+* [Build and Test](#build-and-test)
 
-# 用法
+<!-- /code_chunk_output -->
 
-## 使用 window 作为全局列表
+<!-- prettier-ignore-end -->
 
-```JavaScript
-import * as React from "react";
-import {
-  MovieList,
-  IMovie,
-  createMovie,
-  prefixFrames,
-  appendFrames
-} from "./component";
+# Install
 
-function getData(num, from = 0) {
-  return new Array(num).fill(1).map((_, index) => ({
-    content: {
-      id: from + index,
-      height: Math.ceil(Math.random() * 1000) + 50
-    },
-    height: Math.ceil(Math.random() * 1000) + 50
-  }));
-}
+The only component exposed to external is `MovieList`. And use install script like below:
 
-class App extends React.Component<
-  {},
-  {
-    movie: IMovie;
-    isFetchData: boolean;
-  }
-> {
-  state = {
-    movie: createMovie(400),
-    isFetchData: false
-  };
-
-  addBefore = () => {
-    let newData = getData(10, 200);
-
-    this.setState({
-      movie: prefixFrames(this.state.movie, newData)
-    });
-  };
-
-  addAfter = async () => {
-    this.setState({
-      isFetchData: true
-    });
-
-    await new Promise(resolve => {
-      setTimeout(() => {
-        resolve();
-      }, 1000);
-    });
-
-    let newData = getData(10, 300);
-
-    this.setState({
-      isFetchData: false,
-      movie: appendFrames(this.state.movie, newData)
-    });
-  };
-
-  componentDidMount() {
-    this.addAfter();
-  }
-
-  renderItem = (item, index) => {
-    return (
-      <div
-        className="item"
-        style={{
-          //minHeight: item.height,
-          ...(index % 2 !== 0 ? { backgroundColor: "#ccc" } : {})
-        }}
-        js-index={index}
-      >
-        {index + ` ----------- ` + "好".repeat(item.height + 100)}
-      </div>
-    );
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <div onClick={this.addBefore} className="before-button">
-          click me to add item before
-        </div>
-        <div onClick={this.addAfter} className="after-button">
-          click me to add item after
-        </div>
-
-        <div className="App__head">Site Head</div>
-
-        <MovieList
-          movie={this.state.movie}
-          itemRenderer={this.renderItem}
-          bufferHeightRatio={0.5}
-        /> // 也可以使用children as function的形式
-      </div>
-    );
-  }
-}
-
-export default App;
+```bash
+npm install --save @sevenryze/movie-scroll
 ```
 
-## 使用某一个 div 作为局部列表
+# Usage
+
+## Use the `window` object as the global scroller
 
 ```JavaScript
-import * as React from "react";
-import {
-  MovieList,
-  IMovie,
-  createMovie,
-  prefixFrames,
-  appendFrames
-} from "./component";
-
-function getData(num, from = 0) {
-  return new Array(num).fill(1).map((_, index) => ({
-    content: {
-      id: from + index,
-      height: Math.ceil(Math.random() * 1000) + 50
-    },
-    height: Math.ceil(Math.random() * 1000) + 50
-  }));
-}
-
-class App2 extends React.Component<
-  {},
-  {
-    movie: IMovie;
-    isFetchData: boolean;
-  }
-> {
-  state = {
-    movie: createMovie(400),
-    isFetchData: false
-  };
-
-  addBefore = () => {
-    let newData = getData(10, 200);
-
-    this.setState({
-      movie: prefixFrames(this.state.movie, newData)
-    });
-  };
-
-  addAfter = async () => {
-    this.setState({
-      isFetchData: true
-    });
-
-    await new Promise(resolve => {
-      setTimeout(() => {
-        resolve();
-      }, 1000);
-    });
-
-    let newData = getData(10, 300);
-
-    this.setState({
-      isFetchData: false,
-      movie: appendFrames(this.state.movie, newData)
-    });
-  };
-
-  componentDidMount() {
-    this.addAfter();
-  }
-
-  renderItem = (item, index) => {
-    return (
-      <div
-        className="item"
-        style={{
-          //minHeight: item.height,
-          ...(index % 2 !== 0 ? { backgroundColor: "#ccc" } : {})
-        }}
-        js-index={index}
-      >
-        {index + ` ----------- ` + "好".repeat(item.height + 100)}
-      </div>
-    );
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <div onClick={this.addBefore} className="before-button">
-          click me to add item before
-        </div>
-        <div onClick={this.addAfter} className="after-button">
-          click me to add item after
-        </div>
-
-        <div className="App__head">Site Head</div>
-
-        <MovieList
-          movie={this.state.movie}
-          itemRenderer={this.renderItem}
-          bufferHeightRatio={0}
-          useDivAsScreen={{
-            className: "list"
-          }}
-        />
-      </div>
-    );
-  }
-}
-
-export default App2;
+<MovieList
+  ref={this.movieListInstanceRef}
+  data={this.state.data}
+  assumedHeight={400}
+  bufferHeightRatio={0}
+>
+  {(item: any, index: number) => <Showcase item={item} index={index} />}
+</MovieList>
 ```
 
-记得将设置合适的 CSS 到 .list CSS 类中:
+## Use the wrapper div element as local scroller
 
-```css
-.list {
-  margin: 0 auto;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  height: calc(100vh - 300px); // 设置了作为屏幕的DIV的高度
-}
+```JavaScript
+<MovieList
+  ref={this.movieListInstanceRef}
+  data={this.state.data}
+  assumedHeight={400}
+  bufferHeightRatio={0}
+  useWrapperDivAsScreen={{
+    className: "list"
+  }}
+>
+  {(item: any, index: number) => <Showcase item={item} index={index} />}
+</MovieList>
+
+/*
+  .list {
+    margin: 5rem auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    height: calc(100vh - 300px);
+  }
+*/
 ```
 
 # API
 
-This component exposes two public classes.
+This lib exposes only one public class: `MovieList`.
 
-## `Moive`
+## `MovieList`
 
-## `MoiveList`
+```JavaScript
+<MovieList
+  ref={this.movieListInstanceRef}
+  data={this.state.data}
+  assumedHeight={400}
+  bufferHeightRatio={0.5}
+  useWrapperDivAsScreen={{
+    className: "list"
+  }}
+>
+
+ref.storeMovie();
+ref.restoreMovie();
+```
+
+- `data: any[]`: The list data. Must contain an ID field.
+- `assumedHeight: number`: The height used when the items are not actually rendered.
+- `bufferHeightRatio: number`: How many buffer we want to use?
+- `useWrapperDivAsScreen`: Whether use wrapper div as local scroller, and if use, please supply a css className.
+- `ref.storeMovie: () => void`: Call to get the internal movie object. Used For cache and restore.
+- `ref.restoreMovie: (movie) => void`: Send the cached movie object to internal. **Make sure** to keep sync between movie object and your data object.
+
+# Build and Test
+
+Build? you shall use this one and forget other hand-tired works.
+
+---
+
+<h2 align="center">Maintainer</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center">
+        <img width="150" height="150" src="https://avatars.githubusercontent.com/sevenryze?v=3">
+        <a href="https://github.com/sevenryze">Seven Ryze</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

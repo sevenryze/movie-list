@@ -17,19 +17,14 @@ class App extends React.PureComponent<
   {},
   {
     data: any[];
-    isFetchData: boolean;
   }
 > {
-  private isUseWrapperDivAsScreen = false;
-
   public state = {
-    data: getData(10, 0),
-    isFetchData: false
+    data: getData(10, 0)
   };
 
-  public componentDidMount() {
-    // this.addAfter();
-  }
+  private movie!: any;
+  private movieListInstanceRef = React.createRef<MovieList>();
 
   public render() {
     return (
@@ -40,32 +35,39 @@ class App extends React.PureComponent<
         <div onClick={this.addAfter} className="after-button">
           click me to add item after
         </div>
+        <div onClick={this.getMovie} className="get-movie-button">
+          click me to get the movie
+        </div>
 
         <div className="head">Site Head</div>
 
-        {!this.isUseWrapperDivAsScreen && (
-          <MovieList data={this.state.data} assumedHeight={400} bufferHeightRatio={0}>
-            {(item: any, index: number) => <Showcase item={item} index={index} />}
-          </MovieList>
-        )}
+        {/* <MovieList ref={this.movieListInstanceRef} data={this.state.data} assumedHeight={400} bufferHeightRatio={0}>
+          {(item: any, index: number) => <Showcase item={item} index={index} />}
+        </MovieList> */}
 
-        {this.isUseWrapperDivAsScreen && (
-          <MovieList
-            data={this.state.data}
-            assumedHeight={400}
-            bufferHeightRatio={0}
-            useWrapperDivAsScreen={{
-              className: "list"
-            }}
-          >
-            {(item: any, index: number) => <Showcase item={item} index={index} />}
-          </MovieList>
-        )}
+        <MovieList
+          ref={this.movieListInstanceRef}
+          data={this.state.data}
+          assumedHeight={400}
+          bufferHeightRatio={0}
+          useWrapperDivAsScreen={{
+            className: "list"
+          }}
+        >
+          {(item: any, index: number) => <Showcase item={item} index={index} />}
+        </MovieList>
 
         <div className="footer" />
       </MainWrapper>
     );
   }
+
+  private getMovie = () => {
+    this.movie = this.movieListInstanceRef.current!.storeMovie();
+
+    // tslint:disable-next-line:no-console
+    console.log(this.movie);
+  };
 
   private addBefore = () => {
     const newData = getData(10, 200);
@@ -76,10 +78,6 @@ class App extends React.PureComponent<
   };
 
   private addAfter = async () => {
-    /*  this.setState({
-      isFetchData: true
-    }); */
-
     await new Promise(resolve => {
       setTimeout(() => {
         resolve();
@@ -89,8 +87,7 @@ class App extends React.PureComponent<
     const newData = getData(10, 300);
 
     this.setState({
-      data: this.state.data.concat(newData),
-      isFetchData: false
+      data: this.state.data.concat(newData)
     });
   };
 }
@@ -137,7 +134,16 @@ const MainWrapper = styled.div`
 
   .after-button {
     position: fixed;
-    top: 60px;
+    top: 40px;
+    left: 10rem;
+    width: 100vm;
+    height: 50px;
+    cursor: pointer;
+  }
+
+  .get-movie-button {
+    position: fixed;
+    top: 80px;
     left: 10rem;
     width: 100vm;
     height: 50px;

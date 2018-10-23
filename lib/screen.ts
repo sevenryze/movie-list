@@ -35,7 +35,9 @@ export function project(options: { screen: IScreen; movie: IMovie; bufferRatio: 
     startIndex = frameList.length - 1;
   }
 
-  let endIndex = frameList.findIndex(frame => renderRectBottom < frame.rect.top);
+  let endIndex = frameList.findIndex(
+    (frame, currentIndex) => currentIndex > startIndex && renderRectBottom < frame.rect.top
+  );
   if (endIndex < 0) {
     endIndex = frameList.length;
   }
