@@ -47,14 +47,6 @@ export class MovieList extends React.PureComponent<
     fakePaddingRight: number;
   }
 > {
-  public storeMovie = () => {
-    return this.movie;
-  };
-
-  public restoreMovie = (movie: IMovie) => {
-    this.movie = movie;
-  };
-
   public state = {
     fakePaddingBottom: 0,
     fakePaddingLeft: 0,
@@ -63,23 +55,13 @@ export class MovieList extends React.PureComponent<
     renderSliceEnd: 0, // Not include!
     renderSliceStart: 0
   };
+  public storeMovie = () => {
+    return this.movie;
+  };
 
-  // Record the rendered item's heights.
-  // Very important field!
-  private renderedFrameHeights: IRenderedFrameHeight = {};
-
-  private wrapperDivRef = React.createRef<HTMLDivElement>();
-  private movieDivRef = React.createRef<HTMLDivElement>();
-
-  // This screen is related to movie. NOT web client system!
-  private screen!: IScreen;
-
-  private isMount!: boolean;
-  private unlistenScroll!: () => void;
-  private unlistenResize!: () => void;
-  private movie: IMovie = createMovie(this.props.assumedHeight, []);
-  private prevData!: IListItem[];
-  private throttleDuration = 200;
+  public restoreMovie = (movie: IMovie) => {
+    this.movie = movie;
+  };
 
   public componentDidMount() {
     this.isMount = true;
@@ -169,6 +151,23 @@ export class MovieList extends React.PureComponent<
       </div>
     );
   }
+
+  // Record the rendered item's heights.
+  // Very important field!
+  private renderedFrameHeights: IRenderedFrameHeight = {};
+
+  private wrapperDivRef = React.createRef<HTMLDivElement>();
+  private movieDivRef = React.createRef<HTMLDivElement>();
+
+  // This screen is related to movie. NOT web client system!
+  private screen!: IScreen;
+
+  private isMount!: boolean;
+  private unlistenScroll!: () => void;
+  private unlistenResize!: () => void;
+  private movie: IMovie = createMovie(this.props.assumedHeight, []);
+  private prevData!: IListItem[];
+  private throttleDuration = 200;
 
   /**
    * Use this scheduler to schedule projection.

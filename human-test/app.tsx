@@ -1,4 +1,5 @@
 import React from "react";
+// tslint:disable-next-line:no-implicit-dependencies
 import { hot } from "react-hot-loader";
 import styled from "styled-components";
 import { MovieList } from "../lib";
@@ -22,9 +23,6 @@ class App extends React.PureComponent<
   public state = {
     data: getData(10, 0)
   };
-
-  private movie!: any;
-  private movieListInstanceRef = React.createRef<MovieList>();
 
   public render() {
     return (
@@ -61,6 +59,9 @@ class App extends React.PureComponent<
       </MainWrapper>
     );
   }
+
+  private movie!: any;
+  private movieListInstanceRef = React.createRef<MovieList>();
 
   private getMovie = () => {
     this.movie = this.movieListInstanceRef.current!.storeMovie();

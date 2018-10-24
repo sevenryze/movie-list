@@ -17,7 +17,7 @@ export class Showcase extends React.Component<{
         }}
         js-index={this.props.index}
       >
-        {this.props.index + ` ----------- ` + "好".repeat(this.props.item.height + 100)}
+        {this.props.index + ` ----------- ` + "Very good!  ".repeat(this.props.item.height + 100)}
       </div>
     );
   }
