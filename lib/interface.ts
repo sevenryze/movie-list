@@ -14,7 +14,7 @@ export interface IRectangle {
 
 export interface IFrame {
   rect: IRectangle;
-  content: object;
+  content: IListItem;
   id: string;
 }
 

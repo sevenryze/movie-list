@@ -1,6 +1,6 @@
 {
   "name": "@sevenryze/movie-list",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "files": [
@@ -11,6 +11,7 @@
     "start": "towerflow start",
     "production": "towerflow production",
     "test": "towerflow test --env=jsdom",
+    "publish-to-npm": "npm run test && npm run production && npm publish",
     "generate-config": "towerflow assistant --generate-config",
     "remove-config": "towerflow assistant --remove-config"
   },
@@ -28,11 +29,11 @@
   "devDependencies": {
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
-    "@types/styled-components": "^4.0.2",
+    "@types/styled-components": "^4.0.3",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "styled-components": "^4.0.2",
-    "towerflow": "^1.1.3"
+    "towerflow": "^1.3.4"
   },
   "peerDependencies": {
     "react": "^16.4.2",

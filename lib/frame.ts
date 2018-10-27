@@ -1,8 +1,8 @@
-import { IFrame } from "./interface";
+import { IFrame, IListItem } from "./interface";
 import { createRectangle } from "./rectangle";
 
 export function createFrame(options: {
-  content: object;
+  content: IListItem;
   id: string;
   rect: {
     top: number;

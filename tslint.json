@@ -1,0 +1,31 @@
+{
+  "defaultSeverity": "warning",
+  "extends": ["tslint:latest", "tslint-config-prettier", "tslint-react"],
+  "rules": {
+    "no-unused-expression": [true, "allow-fast-null-checks"],
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "public-static-field",
+          "public-static-method",
+          "public-instance-field",
+          "public-instance-method",
+          "public-constructor",
+          "protected-static-field",
+          "protected-static-method",
+          "protected-instance-field",
+          "protected-instance-method",
+          "protected-constructor",
+          "private-static-field",
+          "private-static-method",
+          "private-instance-field",
+          "private-instance-method",
+          "private-constructor"
+        ]
+      }
+    ],
+    "no-implicit-dependencies": [true, "dev"],
+    "jsx-no-multiline-js": false
+  }
+}

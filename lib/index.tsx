@@ -15,46 +15,51 @@ import { createScreenRelativeToMovie, project } from "./screen";
  * And for simplicy purpose, we use this coordinate system as WORLD system.
  */
 
-export class MovieList extends React.PureComponent<
-  {
-    // How many buffer size should we use, calculating with - Buffer height / Screen height
-    bufferHeightRatio: number;
+type IProps = Readonly<{
+  // How many buffer size should we use, calculating with - Buffer height / Screen height
+  bufferHeightRatio: number;
 
-    // The list item data
-    data: IListItem[];
+  // The list item data
+  data: IListItem[];
 
-    assumedHeight: number;
+  assumedHeight: number;
 
-    // Indicate whether using the wrapper div as movie screen
-    useWrapperDivAsScreen?: {
-      /**
-       * Assign the class name to the wrapper div
-       */
-      className: string;
-    };
-
+  // Indicate whether using the wrapper div as movie screen
+  useWrapperDivAsScreen?: {
     /**
-     * The item renderer. You could also use the children as item renderer.
+     * Assign the class name to the wrapper div
      */
-    itemRenderer?: (item: IListItem, index: number) => void;
-  },
-  {
-    renderSliceStart: number;
-    renderSliceEnd: number;
-    fakePaddingTop: number;
-    fakePaddingBottom: number;
-    fakePaddingLeft: number;
-    fakePaddingRight: number;
-  }
-> {
-  public state = {
+    className: string;
+  };
+
+  /**
+   * The item renderer.
+   *
+   * You could also use the children as item renderer, but not both.
+   */
+  itemRenderer?: (item: IListItem, index: number) => React.ReactNode;
+  children?: (item: IListItem, index: number) => React.ReactNode;
+}>;
+
+type IState = Readonly<{
+  renderSliceStart: number;
+  renderSliceEnd: number;
+  fakePaddingTop: number;
+  fakePaddingBottom: number;
+  fakePaddingLeft: number;
+  fakePaddingRight: number;
+}>;
+
+export class MovieList extends React.PureComponent<IProps, IState> {
+  public state: IState = {
     fakePaddingBottom: 0,
     fakePaddingLeft: 0,
     fakePaddingRight: 0,
     fakePaddingTop: 0,
-    renderSliceEnd: 0, // Not include!
+    renderSliceEnd: 0, // The end slice index is NOT include!
     renderSliceStart: 0
   };
+
   public storeMovie = () => {
     return this.movie;
   };
@@ -89,11 +94,12 @@ export class MovieList extends React.PureComponent<
       target!
     );
 
+    // Schedule the first projection.
     this.runProjection();
   }
 
-  public componentDidUpdate() {
-    this.correctProjection();
+  public componentDidUpdate(preProps: IProps) {
+    this.correctProjection(preProps.data !== this.props.data);
   }
 
   public componentWillUnmount() {
@@ -131,7 +137,7 @@ export class MovieList extends React.PureComponent<
             return (
               <div
                 key={item.id}
-                ref={(ref: HTMLDivElement) => {
+                ref={ref => {
                   if (ref) {
                     // TODO: Make clear on that how getBoundingClientRect() will affect the performance?
                     // TODO: const height = ref.offsetHeight;
@@ -141,9 +147,11 @@ export class MovieList extends React.PureComponent<
                   }
                 }}
               >
-                {(this.props as any).itemRenderer
-                  ? (this.props as any).itemRenderer(item.content, actualIndex)
-                  : (this.props as any).children(item.content, actualIndex)}
+                {this.props.itemRenderer && typeof this.props.itemRenderer === "function"
+                  ? this.props.itemRenderer(item.content, actualIndex)
+                  : this.props.children && typeof this.props.children === "function"
+                    ? this.props.children(item.content, actualIndex)
+                    : undefined}
               </div>
             );
           })}
@@ -166,7 +174,6 @@ export class MovieList extends React.PureComponent<
   private unlistenScroll!: () => void;
   private unlistenResize!: () => void;
   private movie: IMovie = createMovie(this.props.assumedHeight, []);
-  private prevData!: IListItem[];
   private throttleDuration = 200;
 
   /**
@@ -225,13 +232,12 @@ export class MovieList extends React.PureComponent<
     });
   }, requestAnimationFrame);
 
-  private correctProjection = () => {
+  private correctProjection = (isForceProjection: boolean) => {
     if (!this.wrapperDivRef.current) {
       return;
     }
 
-    if (this.prevData !== this.props.data) {
-      this.prevData = this.props.data;
+    if (isForceProjection) {
       this.runProjection();
       return;
     }

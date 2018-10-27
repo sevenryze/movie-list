@@ -10,12 +10,6 @@ coverage/
 build/
 dist/
 
-# config files
-.prettierrc
-jest.config.js
-tsconfig.json
-tslint.json
-
 # misc
 .DS_Store
 .env.local
