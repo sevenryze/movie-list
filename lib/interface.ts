@@ -30,8 +30,8 @@ export interface IScreen {
 
 export interface IListItem {
   id: string;
-
-  [index: string]: any;
 }
 
 export type IRenderedFrameHeight = Record<string, number>;
+
+export type IItemRenderer = (item: any, index: number) => JSX.Element | undefined | null;

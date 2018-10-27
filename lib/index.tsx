@@ -3,7 +3,7 @@ import React from "react";
 import { addResizeListener, addScrollListener } from "./helper/listener";
 import { requestAnimationFrame } from "./helper/rAF";
 import { createScheduler } from "./helper/schedule";
-import { IListItem, IMovie, IRenderedFrameHeight, IScreen } from "./interface";
+import { IItemRenderer, IListItem, IMovie, IRenderedFrameHeight, IScreen } from "./interface";
 import { createMovie } from "./movie";
 import { createRectangle } from "./rectangle";
 import { createScreenRelativeToMovie, project } from "./screen";
@@ -37,8 +37,8 @@ type IProps = Readonly<{
    *
    * You could also use the children as item renderer, but not both.
    */
-  itemRenderer?: (item: IListItem, index: number) => React.ReactNode;
-  children?: (item: IListItem, index: number) => React.ReactNode;
+  itemRenderer?: IItemRenderer;
+  children?: IItemRenderer;
 }>;
 
 type IState = Readonly<{
