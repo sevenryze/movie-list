@@ -52,7 +52,7 @@ class App extends React.PureComponent<
             className: "list"
           }}
         >
-          {(item: any, index: number) => <Showcase item={item} index={index} />}
+          {(item: { id: string; height: number }, index: number) => <Showcase item={item} index={index} />}
         </MovieList>
 
         <div className="footer" />
