@@ -9,6 +9,7 @@
       "request": "launch",
       "name": "Launch Chrome against localhost:8080",
       "url": "http://localhost:8080",
+      "runtimeArgs": ["--incognito"],
       "webRoot": "${workspaceFolder}",
       "smartStep": true,
       "skipFiles": ["**/node_modules/**"]
